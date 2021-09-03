@@ -12,10 +12,10 @@ Heatmap is a great visualization technique to show the magnitude of aggregations
 
 ## Wireframes
 ### Sample heatmap of passes
-![](Images/Wireframe_home.jpg)
+![](dist/Images/Wireframe_home.jpg)
 
 ### Sample tabular data of a single player
-![](Images/Wireframe_data.jpg)
+![](dist/Images/Wireframe_data.jpg)
 
 ## Technologies, Libraries, APIs
 SoccerHeatTracker uses the following technologies:
