@@ -20,7 +20,7 @@ Heatmap is a great visualization technique to show the magnitude of aggregations
 ## Technologies, Libraries, APIs
 SoccerHeatTracker uses the following technologies:
 
-- d3-soccer (D3 plugin for visualization of soccer data)
-- Canvas API (for rendering interactive visuals)
+- [d3-soccer](https://www.npmjs.com/package/d3-soccer) (D3 plugin for visualization of soccer data)
+- [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) (for rendering interactive visuals)
 - npm (to manage project dependencies)
 
