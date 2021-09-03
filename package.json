@@ -1,0 +1,43 @@
+{
+  "name": "SoccerHeatTracker",
+  "version": "1.0.0",
+  "description": "## Background Welcome to SoccerHeatTracker, an interactive heatmap generator of various data retrieved from professional soccer matches.",
+  "main": "webpack.config.js",
+  "browserslist": [
+    "defaults"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dannyjwpark/SoccerHeatTracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dannyjwpark/SoccerHeatTracker/issues"
+  },
+  "homepage": "https://github.com/dannyjwpark/SoccerHeatTracker#readme",
+  "devDependencies": {
+    "css-loader": "^6.2.0",
+    "style-loader": "^3.2.1"
+  },
+  "dependencies": {
+    "12": "^1.0.2",
+    "@babel/core": "^7.15.4",
+    "@babel/preset-env": "^7.15.4",
+    "babel-loader": "^8.2.2",
+    "core-js": "^3.17.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mini-css-extract-plugin": "^2.2.2",
+    "node-fetch": "^3.0.0",
+    "regenerator-runtime": "^0.13.9",
+    "sass": "^1.39.0",
+    "sass-loader": "^12.1.0",
+    "webpack": "^5.52.0",
+    "webpack-cli": "^4.8.0"
+  }
+}

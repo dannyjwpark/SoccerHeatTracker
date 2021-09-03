@@ -1,0 +1,14 @@
+// babel.config.json
+{
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "useBuiltIns": "usage",
+                // corejs: library that provides polyfills for modern JavaScript
+                    // polyfills: chunks of code that implement features that a browser might not support
+                "corejs": "3"
+            }
+        ]
+    ]
+}
