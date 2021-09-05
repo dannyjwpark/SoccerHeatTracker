@@ -1,0 +1,49 @@
+/* reset */
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+/* title */
+.title {
+    font-size: 3em;
+    stroke: black;
+    stroke-width: 2px;
+    text-align: center;
+    margin: auto;
+}
+
+
+/* field */
+.field {
+    display: block;
+    position: relative;
+    left: 25.5%;
+}
+
+
+
+/* footer */
+a:link    {color:orangered;  text-decoration:none}
+a:visited {color:orangered; text-decoration:none}
+.footer_Github:hover   {margin-left: 5px;
+	-webkit-transform: scale(1.2);
+	transform: scale(1.2);
+	-webkit-transition: .1s ease-in-out;
+	transition: .1s ease-in-out;}
+.footer_Linkedin:hover   {margin-left: 5px;
+	-webkit-transform: scale(1.2);
+	transform: scale(1.2);
+	-webkit-transition: .1s ease-in-out;
+	transition: .1s ease-in-out;}
+
+.tableFooter{
+  margin-top: 500px;
+  position: relative;
+}
+.footer_Github{
+  width: 32px;
+}
+.footer_Linkedin{
+  width: 32px;
+}

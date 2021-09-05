@@ -6,11 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./dist/main.css" />
-    <script src="./dist/main.js"></script>
+    <script src="app.js"></script>
+    <!-- <script src="./dist/main.js"></script> -->
     <title>Soccer HeatTracker</title>
+
 </head>
 
 <body>
 </body>
+    <!-- title -->
+    <h2 class="title"> Soccer Heat Tracker </h2>
 
+    <!-- field -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+
+    <div class="field">
+        <svg id="field-outline" width="1500" height="1000">
+            <rect x="0" y="0" width="1200" height="800" 
+            fill="none" stroke="black" stroke-width="5px"></rect>
+        </svg>
+    </div>
+
+
+
+    <!-- Footer-->
+    <footer class = "text-center">
+        <div class="tableFooter">
+            <!-- social media -->
+            <div class="sourceLinks">
+                <a href="https://github.com/dannyjwpark/SoccerHeatTracker" target="_blank">
+                    <img class="footer_Github" src="dist/assets/Images/github.svg"
+                        style="text-align:center" alt="Github">
+                </a>
+                <a href="https://www.linkedin.com/in/jwp007/" target="_blank">
+                    <img class="footer_Linkedin" src="dist/assets/Images/linkedin.svg"
+                        style="text-align:center" alt="Linkedin">
+                </a>
+
+            </div>
+            <!-- end footer -->
+        </div>
+    </footer>
+    <!-- end of Footer -->
 </html>
