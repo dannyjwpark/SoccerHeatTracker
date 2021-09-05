@@ -4,26 +4,40 @@ html, body{
     padding: 0;
 }
 
-/* title */
-.title {
-    font-size: 3em;
-    stroke: black;
-    stroke-width: 2px;
-    text-align: center;
-    margin: auto;
-}
 
 
 /* field */
-.field {
-    display: block;
-    position: relative;
-    left: 25.5%;
+.title-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: black;
 }
+
+.title{
+  font-size: 48px;
+  color: rgba(255, 255, 255, 0.838);
+  font-family: 'Raleway', sans-serif;
+}
+
+
+.field-container {
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  padding: 100px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
 
 
 
 /* footer */
+.footer-container {
+  background-color: #f1f2f6;
+}
+
 a:link    {color:orangered;  text-decoration:none}
 a:visited {color:orangered; text-decoration:none}
 .footer_Github:hover   {margin-left: 5px;
@@ -37,11 +51,19 @@ a:visited {color:orangered; text-decoration:none}
 	-webkit-transition: .1s ease-in-out;
 	transition: .1s ease-in-out;}
 
+.sourceLinks {
+  display: flex;
+  justify-content: end;
+  padding-right: 100px;
+}
+
 .tableFooter{
-  margin-top: 500px;
+  padding-top: 10px;
+  padding-bottom: 20px;
   position: relative;
 }
 .footer_Github{
+  padding-right: 16px;
   width: 32px;
 }
 .footer_Linkedin{

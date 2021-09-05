@@ -7,31 +7,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./dist/main.css" />
     <script src="app.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
     <!-- <script src="./dist/main.js"></script> -->
     <title>Soccer HeatTracker</title>
 
 </head>
 
 <body>
-</body>
     <!-- title -->
-    <h2 class="title"> Soccer Heat Tracker </h2>
-
-    <!-- field -->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-
-
-    <div class="field">
-        <svg id="field-outline" width="1500" height="1000">
-            <rect x="0" y="0" width="1200" height="800" 
-            fill="none" stroke="black" stroke-width="5px"></rect>
-        </svg>
+    <div class="title-container">
+        <!-- title -->
+        <div class="title"> SOCCER HEAT TRACKER </div>
     </div>
 
+    <!-- field -->
+    <div class="field-container">
+        <img class="fieldSVG" src="dist/assets/Images/soccerfield.svg">
+    </div>
+    
+    
+</body>
 
 
     <!-- Footer-->
-    <footer class = "text-center">
+    <footer class = "footer-container">
         <div class="tableFooter">
             <!-- social media -->
             <div class="sourceLinks">
@@ -49,4 +50,5 @@
         </div>
     </footer>
     <!-- end of Footer -->
+    
 </html>
