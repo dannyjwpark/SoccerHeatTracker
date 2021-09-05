@@ -7,13 +7,13 @@
     "defaults"
   ],
   "engines": {
-    "node": "14.x" // use your version of node; check with `node -v`
+    "node": "14.x" 
   },
 
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js", // runs server
-    "start:debug": "node --inspect app.js", // server with debuggers 
+    "start": "node app.js",
+    "start:debug": "node --inspect app.js",
     "watch": "webpack --watch --mode=development",
     "build": "webpack --mode=production"
   },
