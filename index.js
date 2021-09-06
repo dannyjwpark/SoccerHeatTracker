@@ -12,28 +12,27 @@ async function getSoccerData() {
 
 getSoccerData();
 
-// let dataButton = document.getElementById('showData');
-// if(dataButton){
-//     dataButton.addEventListener('click', getPassData);
-// }
-function getPassData(){
+document.getElementById('passData').addEventListener('click', getData);
+
+function getData(){
     fetch(dataURL)
         .then((res) => res.json())
         .then((data) => {
             let output = '<h2>Data</h2>';
             data.forEach(function (datum) {
                 if(datum.type["name"] === "Pass"){
-                output += `
-                <ul>
-                    <li>ID: ${datum.id} </li>
-                    <li>time: ${datum.timestamp} </li>
-                    <li>team: ${datum.team["name"]} </li>
-                    <li>type: ${datum.type["name"]} </li>
-                </ul>
-                `;
-            }
+                    output += `
+                        <div>
+                        <li>ID: ${datum.id} </li>
+                        <li>time: ${datum.timestamp} </li>
+                        <li>team: ${datum.team["name"]} </li>
+                        <li>type: ${datum.type["name"]} </li>
+                        <br>
+                        </div>
+                    `;
+                }
             });
-            document.getElementById('dataList').innerHTML = output;
+            document.getElementById('passDataList').innerHTML = output;
         })
 }
-getPassData()
+
