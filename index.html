@@ -26,13 +26,11 @@
         <a href="#home">Home</a>
         <a href="https://www.espn.com/soccer/" target="_blank">News</a>
         <div class="dropdown">
-            <button class="dropbtn">Map Mode
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content">
-                <a href="#">Passing Map</a>
-                <a href="#">Shooting Map</a>
-            </div>
+            <select class="dropbtn">
+                <option disabled selected value> Select Map Mode </option>
+                <option value="Pass" href="#">Passing Map</option>
+                <option value="Shot" href="#">Shooting Map</option>
+            </select>
         </div>
 
     </div>
@@ -46,7 +44,26 @@
     
     <!-- data button -->
     <button id="passData" target="_blank">Show Pass Data</button>
-    <div id="passDataList"></div>
+    <!-- <div id="passDataList"></div> -->
+
+    <div class="data-container">
+        <table class="table-data">
+            <tbody id="data">
+                <tr>
+                    <th> 1st/2nd Half </th>
+                    <th> timestamp </th>
+                    <th> team name </th>
+                    <th> player name </th>
+                    <th> Event type </th>
+                    <th> Pass recipient</th>
+                    <th> Pass start loc</th>
+                    <th> Pass end loc</th>
+                    <th> Pass length</th>
+                    <th> Pass angle</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <script type="text/javascript" src="index.js"></script>
 </body>
