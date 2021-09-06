@@ -16,7 +16,7 @@ Heatmap is a great visualization technique to show the magnitude of aggregations
 
 ### Sample tabular data of a single player
 ![](dist/assets/Images/Wireframe_data.jpg)
-Data source: [Statsbomb]('https://github.com/statsbomb/open-data/blob/master/doc/')
+Data source: [Statsbomb](https://github.com/statsbomb/open-data/blob/master/doc/)
 
 ## Technologies, Libraries, APIs
 SoccerHeatTracker uses the following technologies:
