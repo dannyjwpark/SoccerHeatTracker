@@ -1,4 +1,5 @@
 const dataURL = 'https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/8658.json';
+let d3 = require("d3@6", "d3-contour@2");
 
 document.getElementById('passData').addEventListener('click', dataTable);
 
@@ -80,4 +81,16 @@ function dataTable(){
     )
 }
 
-// dataTable();
+
+// Countours
+let margin = { top: 80, right: 25, bottom: 30, left: 40 },
+    width = 450 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
+
+let svg = d3.select("#fieldSVG")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+

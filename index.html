@@ -7,6 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./dist/main.css" />
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-array@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-contour@3"></script>
+    
+    <!-- Create a div where the graph will take place -->
+    <div id="my_dataviz"></div>
+    <!-- Load color palettes -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
 
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
     <!-- <script src="./dist/main.js"></script> -->
@@ -37,7 +45,7 @@
 
     <!-- field -->
     <div class="field-container">
-        <img class="fieldSVG" src="dist/assets/Images/soccerfield.svg">
+        <img id="fieldSVG" src="dist/assets/Images/soccerfield.svg">
     </div>
     
     
