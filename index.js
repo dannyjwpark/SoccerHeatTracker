@@ -10,7 +10,10 @@ function selectMode(){
     return(selectedMode);
     
 }
-console.log(selectMode());
+// console.log(selectMode());
+
+
+
 
 function dataTable(){
     fetch(dataURL).then(
@@ -44,6 +47,8 @@ function dataTable(){
                             }
                         })
                         // --close for loop
+                        
+                        
 
                         let tablePos = document.getElementById("data");
                         tablePos.insertAdjacentHTML('afterend',temp);                    
@@ -69,4 +74,3 @@ $(document).ready(function () {
 
 
 // field
-
