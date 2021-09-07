@@ -25,13 +25,12 @@
     <div class="navbar">
         <a href="#home">Home</a>
         <a href="https://www.espn.com/soccer/" target="_blank">News</a>
-        <div class="dropdown">
-            <select class="dropbtn">
-                <option disabled selected value> Select Map Mode </option>
-                <option value="Pass" href="#">Passing Map</option>
-                <option value="Shot" href="#">Shooting Map</option>
-            </select>
-        </div>
+        
+        <select id="dropbtn" onchange="selectMode();">
+            <option disabled selected value> Select Map Mode </option>
+            <option value="Pass">Passing Map</option>
+            <option value="Shot">Shooting Map</option>
+        </select>
 
     </div>
 
@@ -43,7 +42,7 @@
     
     
     <!-- data button -->
-    <button id="passData" target="_blank">Show Pass Data</button>
+    <button id="passData" target="_blank" onclick="dataTable()">Show Pass Data</button>
     <!-- <div id="passDataList"></div> -->
 
     <div class="data-container">

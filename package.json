@@ -7,9 +7,8 @@
     "defaults"
   ],
   "engines": {
-    "node": "14.x" 
+    "node": "14.x"
   },
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
@@ -40,6 +39,7 @@
     "babel-loader": "^8.2.2",
     "core-js": "^3.17.2",
     "d3": "^7.0.1",
+    "d3-contour": "^3.0.1",
     "d3-soccer": "^0.1.0",
     "dotenv": "^10.0.0",
     "eslint": "^7.32.0",
