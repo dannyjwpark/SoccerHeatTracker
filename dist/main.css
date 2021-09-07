@@ -1,33 +1,12 @@
 /* reset */
-html, body{
-    margin: 0;
+html, body, .graph{
+    margin: 0 auto;
     padding: 0;
 }
 
+
 /* navbar */
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-}
 
-.navbar a {
-  float: left;
-  font-size: 16px;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-
-.navbar a:hover {
-  background-color: rgba(211, 211, 211, 0.386);
-  opacity: 1.5;
-}
-.navbar .dropbtn:hover {
-  background-color: rgba(211, 211, 211, 0.386);
-  opacity: 1.5;
-}
 
 
 /* field */
@@ -52,6 +31,13 @@ html, body{
   padding: 100px;
   margin: 0 auto;
   max-width: 1200px;
+}
+
+
+/* test savg */
+#canvas{
+  min-height: 600px;
+  min-width: 1200px;
 }
 
 

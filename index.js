@@ -1,35 +1,10 @@
 const dataURL = 'https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/8658.json';
-let d3 = require("d3@6", "d3-contour@2");
+let req = new XMLHttpRequest();
 
 document.getElementById('passData').addEventListener('click', dataTable);
 
-// function getData(){
-//     fetch(dataURL)
-//         .then((res) => res.json())
-//         .then((data) => {
-//             let output = '<h2>Data</h2>';
-//             data.forEach(function (datum) {
-//                 if(datum.type["name"] === "Pass"){ 
-//                     output += `
-//                         <div>
-//                         <li>ID: ${datum.id} </li>
-//                         <li>time: ${datum.timestamp} </li>
-//                         <li>team: ${datum.team["name"]} </li>
-//                         <li>player: ${datum.player["name"]} </li>
-//                         <li>type: ${datum.type["name"]} </li>
-//                         <li>recipient: ${datum.pass.recipient} </li>
-//                         <br>
-//                         </div>
-//                     `;
-//                 }
-//             });
-
-//             document.getElementById('passDataList').innerHTML = output;
-//         })
-// }
-
 function selectMode(){
-    const matchModes = document.getElementById('dropbtn');
+    const matchModes = document.querySelector('dropdown-content');
     let selectedMode = matchModes.options[matchModes.selectedIndex].value;
     alert(selectedMode);
     return(selectedMode);
@@ -82,15 +57,16 @@ function dataTable(){
 }
 
 
-// Countours
-let margin = { top: 80, right: 25, bottom: 30, left: 40 },
-    width = 450 - margin.left - margin.right,
-    height = 450 - margin.top - margin.bottom;
+// dropdown
+$(document).ready(function () {
+    $('.dropdown-submenu a.test').on("click", function (e) {
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+    });
+});
 
-let svg = d3.select("#fieldSVG")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+// field
 
