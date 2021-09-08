@@ -6,7 +6,62 @@ html, body, .graph{
 
 
 /* navbar */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
 
+.navbar, .container, .dropdown {
+  overflow: visible;
+  background-color: #333;
+  display: flex;
+  flex-wrap: nowrap;
+
+  
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown, .container, .dropdown button {
+  float: left;
+  overflow: visible;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  padding: 4px 7px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+
+/* dropdown button & submenus hovering color*/
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: rgba(211,211,211,0.386);
+}
+
+/* prevent submenus from stacking on themselves*/
+.dropdown-submenu {
+  position: relative;
+}
+
+/* append submenu to right side*/
+.dropdown-submenu .dropdown-menu {
+  top: 50%;
+  left: 100%;
+  margin-top: -1px;
+}
+
+/* match, mode viewer */
+#matchList{
+  font-size: 20px
+}
 
 
 /* field */
@@ -67,10 +122,12 @@ a:visited {color:orangered; text-decoration:none}
   padding-bottom: 20px;
   position: relative;
 }
+
 .footer_Github{
-  padding-right: 16px;
+  padding-right: 5px;
   width: 32px;
 }
 .footer_Linkedin{
+  padding-left: 5px;
   width: 32px;
 }

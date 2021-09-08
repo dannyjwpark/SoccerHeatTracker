@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/d3-contour@3"></script>
     
 
+
     <!-- Create a div where the graph will take place -->
     <div id="my_dataviz"></div>
     <!-- Load color palettes -->
@@ -21,63 +22,7 @@
     <!-- <script src="./dist/main.js"></script> -->
     <title>Soccer HeatTracker</title>
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-    
-        .navbar,
-        .container,
-        .dropdown {
-            overflow: visible;
-            background-color: #333;
-            display: flex;
-            flex-wrap: nowrap;
-    
-    
-        }
-    
-        .navbar a {
-            float: left;
-            font-size: 16px;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-    
-        .dropdown,
-        .container,
-        .dropdown button {
-            float: left;
-            overflow: visible;
-            color: white;
-            font-size: 16px;
-            text-align: center;
-            padding: 4px 7px;
-            border: none;
-            outline: none;
-            background-color: transparent;
-        }
-    
-    
-    
-        /* dropdown button & submenus hovering color*/
-        .navbar a:hover,
-        .dropdown:hover .dropbtn {
-            background-color: rgba(211, 211, 211, 0.386);
-        }
-    
-        /* prevent submenus from stacking on themselves*/
-        .dropdown-submenu {
-            position: relative;
-        }
-    
-        /* append submenu to right side*/
-        .dropdown-submenu .dropdown-menu {
-            top: 50%;
-            left: 100%;
-            margin-top: -1px;
-        }
+
     </style>
 </head>
 
@@ -91,110 +36,131 @@
     <!-- navbar -->
 <body>
     <!-- navbar -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-    <div class="navbar">
-        <a href="#home">Home</a>
-        <a href="https://www.espn.com/soccer/" target="_blank">News</a>
+<div class="navbar">
+    <a href="#home">Home</a>
+    <a href="https://www.espn.com/soccer/" target="_blank">News</a>
 
 
-        <div class="container">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Match
-                    <span class="caret"></span></button>
+<div class="container">
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Match
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+
+            <li class="dropdown-submenu">
+                <a class="test" tabindex="-1" href="#">Group Stage <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-
-                    <li class="dropdown-submenu">
-                        <a class="test" tabindex="-1" href="#">Group Stage <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown-submenu">
-                        <a class="test" tabindex="-1" href="#">Round of 16 <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown-submenu">
-                        <a class="test" tabindex="-1" href="#">Quarter-finals <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown-submenu">
-                        <a class="test" tabindex="-1" href="#">Semi=finals <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown-submenu">
-                        <a class="test" tabindex="-1" href="#">3rd Place Final <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown-submenu">
-                        <a class="test" tabindex="-1" href="#">Final <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                        </ul>
-                    </li>
+                    <li><a tabindex="-1" href="#" class="chooseMatch">Group Stage</a></li>
                 </ul>
-            </div>
-        </div>
+            </li>
 
-
-
-
-        <div class="container">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Mode
-                    <span class="caret"></span></button>
+            <li class="dropdown-submenu">
+                <a class="test" tabindex="-1" href="#">Round of 16 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-
-                    <li class="dropdown-submenu">
-                        <a href="#">Passing </a>
-                    </li>
-
-                    <li class="dropdown-submenu">
-                        <a href="#">Shooting </a>
+                    <li><a tabindex="-1" href="#" class="chooseMatch">Round of 16</a></li>
                 </ul>
-                </li>
+            </li>
 
+            <li class="dropdown-submenu">
+                <a class="test" tabindex="-1" href="#">Quarter-finals <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a tabindex="-1" href="#" class="chooseMatch">Quarter-finals</a></li>
                 </ul>
-            </div>
-        </div>
+            </li>
 
+            <li class="dropdown-submenu">
+                <a class="test" tabindex="-1" href="#">Semi-finals <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a tabindex="-1" href="#" class="chooseMatch">Semi-finals</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown-submenu">
+                <a class="test" tabindex="-1" href="#">3rd Place Final <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a tabindex="-1" href="#" class="chooseMatch">3rd Place</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown-submenu">
+                <a class="test" tabindex="-1" href="#">Final <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a tabindex="-1" href="#" class="chooseMatch">Final dropdown</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+<div class="container">
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Mode
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+
+            <li class="dropdown-submenu">
+                <a href="#" class="chooseMode">Passing </a>
+            </li>
+            
+            <li class="dropdown-submenu">
+                <a href="#" class="chooseMode">Shooting </a>
+        </ul>
+        </li>
+
+        </ul>
+    </div>
+</div>
     </div>
 
-    <script>
-        $(document).ready(function () {
-            $('.dropdown-submenu a.test').on("click", function (e) {
-                $(this).next('ul').toggle();
-                e.stopPropagation();
-                e.preventDefault();
-            });
+
+
+
+    <div class="container">
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Mode
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+
+                <li class="dropdown-submenu">
+                    <a href="#">Passing </a>
+                </li>
+
+                <li class="dropdown-submenu">
+                    <a href="#">Shooting </a>
+            </ul>
+            </li>
+
+            </ul>
+        </div>
+    </div>
+
+</div>
+<!-- jquery for dropdown toggle -->
+<script>
+    $(document).ready(function () {
+        $('.dropdown-submenu a.test').on("click", function (e) {
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
         });
-    </script>
+    });
+</script>
+<div class="matchList">
+    <a id="demo1"> </a>
+    <br>
+    <a id="demo2"> </a>
+</div>
 
 
-</body>
+
 
 
     <!-- field -->
@@ -205,29 +171,6 @@
     </div>
 
 </div>
-    
-    <!-- data button -->
-    <button id="passData" target="_blank" onclick="dataTable()">Show Pass Data</button>
-    <!-- <div id="passDataList"></div> -->
-
-    <div class="data-container">
-        <table class="table-data">
-            <tbody id="data">
-                <tr>
-                    <th> 1st/2nd Half </th>
-                    <th> timestamp </th>
-                    <th> team name </th>
-                    <th> player name </th>
-                    <th> Event type </th>
-                    <th> Pass recipient</th>
-                    <th> Pass start loc</th>
-                    <th> Pass end loc</th>
-                    <th> Pass length</th>
-                    <th> Pass angle</th>
-                </tr>
-            </tbody>
-        </table>
-    </div>
 
     <script type="text/javascript" src="index.js"></script>
 </body>

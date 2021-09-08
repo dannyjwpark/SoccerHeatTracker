@@ -1,6 +1,7 @@
 const dataURL = 'https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/8658.json';
 let req = new XMLHttpRequest();
 // let mapMode;
+// let matchid;
 let mapMode = "pass";
 
 // ball coordinates
