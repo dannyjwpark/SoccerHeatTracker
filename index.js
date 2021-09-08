@@ -59,28 +59,30 @@ const loopData = async function (){
     for(let i = 0; i < stages.length; i++) {
         let obj = matchList[stages[i]];
         for(let j=0; j < obj.length; j++){
+
             let el = document.createElement("li");
+            
             const innerValFunc = function () {
                 el.innerHTML = `<a href="#" class="chooseMatch" value=${obj[j]["match_id"]}>${obj[j]["match_name"]}</a>`;
             }
             loadData(csvURL)
-            .then(innerValFunc)
-            .then(() => {
-                if (stages[i] === "Group Stage") {
-                    match_32.appendChild(el);
-                } else if (stages[i] === "Round of 16") {
-                    match_16.appendChild(el);
-                } else if (stages[i] === "Quarter-finals") {
-                    match_8.appendChild(el);
-                } else if (stages[i] === "Semi-finals") {
-                    match_4.appendChild(el);
-                } else if (stages[i] === "3rd Place Final") {
-                    match_3.appendChild(el);
-                } else if (stages[i] === "Final") {
-                    match_1.appendChild(el);
+                .then(innerValFunc)
+                .then(() => {
+                    if (stages[i] === "Group Stage") {
+                        match_32.appendChild(el);
+                    } else if (stages[i] === "Round of 16") {
+                        match_16.appendChild(el);
+                    } else if (stages[i] === "Quarter-finals") {
+                        match_8.appendChild(el);
+                    } else if (stages[i] === "Semi-finals") {
+                        match_4.appendChild(el);
+                    } else if (stages[i] === "3rd Place Final") {
+                        match_3.appendChild(el);
+                    } else if (stages[i] === "Final") {
+                        match_1.appendChild(el);
+                    }
                 }
-            }
-            );
+                );
             console.log(el.innerHTML);
         }
     }
@@ -98,20 +100,22 @@ loadData(csvURL).then(loopData).then(matchSelect);
 // loopData().then(choosingMatch());
 
 function matchSelect(){
-    console.log(matchSelection.length);
-    for (let i = 0; i < matchSelection.length; i++) {
-        matchSelection[i].addEventListener("click", function () {
-            matchName = matchSelection[i].innerHTML;
-            document.getElementById("demo1").innerHTML = matchName;
-            matchid = matchSelection[i].getAttribute("value");
-            console.log("matchName: " + matchName);
-            console.log("matchid: " + matchid);
-            dataFilter();
-        });
-    }
+    setTimeout(() => {
+        console.log(matchSelection.length);
+        for (let i = 0; i < matchSelection.length; i++) {
+            matchSelection[i].addEventListener("click", function () {
+                matchName = matchSelection[i].innerHTML;
+                document.getElementById("demo1").innerHTML = matchName;
+                matchid = matchSelection[i].getAttribute("value");
+                console.log("matchName: " + matchName);
+                console.log("matchid: " + matchid);
+                dataFilter();
+            });
+        }
+    }, 500);
 }
 
-window.addEventListener('load', matchSelect());
+// window.addEventListener('load', matchSelect());
 
 
 // filtering data
@@ -119,46 +123,48 @@ let filtered_data;
 const dataURL = `https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/${matchid}.json`;
 
 function dataFilter() {
-    fetch(dataURL).then(
-        res => {
-            res.json().then(
-                data => {
-                    // adjusting 2nd half minutes
-                    data.forEach((el) => {
-                        if (el.period === 2) {
-                            el.minute += 45;
-                        }
-                    })
-
-                    if (data.length > 0) {
-                         let filteredData = [];
-                        data.forEach((datum) => {
-                            let temp = {};
-                            if (datum.type["name"] === mapMode) {
-                                temp.id = datum.id;
-                                temp.period = datum.period;
-                                temp.timestamp = datum.timestamp.slice(0, 5);
-                                temp.teamname = datum.team.name;
-                                temp.playername = datum.player.name;
-                                temp.event = datum.type.name;
-                                temp.pass_start_loc = datum.location;
-                                temp.pass_end_loc = datum.pass.end_location;
-                                temp.pass_length = datum.pass.length;
-                                temp.pass_angle = datum.pass.angle;
+    setTimeout(() => {
+        fetch(dataURL).then(
+            res => {
+                res.json().then(
+                    data => {
+                        // adjusting 2nd half minutes
+                        data.forEach((el) => {
+                            if (el.period === 2) {
+                                el.minute += 45;
                             }
-                            filteredData.push(temp);
                         })
 
-                        console.log(filteredData);
-                        filtered_data = filteredData.filter((x) => x.id !== undefined);
-                        return filtered_data;
+                        if (data.length > 0) {
+                            let filteredData = [];
+                            data.forEach((datum) => {
+                                let temp = {};
+                                if (datum.type["name"] === mapMode) {
+                                    temp.id = datum.id;
+                                    temp.period = datum.period;
+                                    temp.timestamp = datum.timestamp.slice(0, 5);
+                                    temp.teamname = datum.team.name;
+                                    temp.playername = datum.player.name;
+                                    temp.event = datum.type.name;
+                                    temp.pass_start_loc = datum.location;
+                                    temp.pass_end_loc = datum.pass.end_location;
+                                    temp.pass_length = datum.pass.length;
+                                    temp.pass_angle = datum.pass.angle;
+                                }
+                                filteredData.push(temp);
+                            })
+
+                            console.log(filteredData);
+                            filtered_data = filteredData.filter((x) => x.id !== undefined);
+                            return filtered_data;
+                        }
                     }
-                }
-            ).catch(error => {
-                throw Error("ERROR: no data found");
-            })
-        }
-    )
+                ).catch(error => {
+                    throw Error("ERROR: no data found");
+                })
+            }
+        )
+    }, 600)
 }
 
 
