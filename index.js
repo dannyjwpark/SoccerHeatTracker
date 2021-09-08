@@ -25,7 +25,7 @@ async function loadData(csvURL){
         // return matchList;
     })
 };
-loadData(csvURL);
+// loadData(csvURL);
 
 
 // get and set map mode
@@ -55,8 +55,8 @@ let match_1 = document.getElementById("match_1");
 
 
 // ensure wait loading (w/ asyncfunction)
-loadData(csvURL).then(
-function loopData(){
+
+const loopData = async function (){
     for(let i = 0; i < stages.length; i++) {
         let obj = matchList[stages[i]];
         for(let j=0; j < obj.length; j++){
@@ -84,11 +84,17 @@ function loopData(){
         }
     }
 }
-)
+loadData(csvURL).then(loopData);
+
 
 // get match name and map mode from user's clicks
-let matchSelection = document.getElementsByClassName("chooseMatch");
-function matchSelect(){
+let metchSelection;
+const choosingMatch = function(){ 
+    return matchSelection=document.getElementsByClassName("chooseMatch");
+}
+loopData().then(choosingMatch());
+
+async function matchSelect(){
     for (let i = 0; i < matchSelection.length; i++) {
         matchSelection[i].addEventListener("click", function () {
             matchName = matchSelection[i].innerHTML;
@@ -100,7 +106,9 @@ function matchSelect(){
         });
     }
 }
-// loadData(csvURL).then(matchSelect);
+
+
+window.addEventListener('load', matchSelect());
 
 
 // filtering data
