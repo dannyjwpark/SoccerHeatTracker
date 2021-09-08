@@ -1,4 +1,4 @@
-,match_id,match_date,match_week,competition_stage.name,home_team.home_team_name,away_team.away_team_name,home_score,away_score
+,match_id,match_date,match_week,competition_stage,home_team,away_team,home_score,away_score
 1,7525,2018-06-14,1,Group Stage,Russia,Saudi Arabia,5,0
 2,7576,2018-06-15,1,Group Stage,Portugal,Spain,3,3
 3,7577,2018-06-15,1,Group Stage,Morocco,Iran,0,1

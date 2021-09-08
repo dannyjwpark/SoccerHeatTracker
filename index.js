@@ -1,4 +1,5 @@
 const dataURL = 'https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/8658.json';
+const csvURL = "dist/assets/data/worldcup_match_id.csv";
 let req = new XMLHttpRequest();
 let mapMode = "Pass";
 let matchid;
@@ -10,14 +11,14 @@ let matchSelection = document.getElementsByClassName("chooseMatch");
 
 for(let i=0; i<matchSelection.length; i++){
     matchSelection[i].addEventListener("click", function(){
-        matchName = matchSelection[i];
-        document.getElementById("demo1").innerHTML = matchName.innerHTML;
-        console.log("matchName: " + matchName.innerHTML);
+        matchName = matchSelection[i].innerHTML;
+        document.getElementById("demo1").innerHTML = matchName;
+        console.log("matchName: " + matchName);
         dataFilter();
     });
 }
 
-
+// object of all the matches
 let modeSelection = document.getElementsByClassName("chooseMode");
 
 for (let i = 0; i < modeSelection.length; i++) {
@@ -34,19 +35,31 @@ for (let i = 0; i < modeSelection.length; i++) {
 }
 
 
-// document.getElementById('matchChoose').addEventListener('click', dataFilter);
-
-// function selectMode(){
-//     const matchModes = document.querySelector('dropdown-content');
-//     let selectedMode = matchModes.options[matchModes.selectedIndex].value;
-//     alert(selectedMode);
-//     return(selectedMode);
-    
-// }
-// console.log(selectMode());
+// 
 
 
+let matchList = {"Group Stage": [], "Round of 16": [], "Quarter-finals": [], "Semi-finals": [], "3rd Place Final": [], "Final": []};
+d3.csv(csvURL).then(function(data){
+    data.forEach(function(datum){
+        // console.log(datum.home_team + " vs " + datum.away_team);
+        for(let i=0; i<Object.keys(matchList).length; i++){
+            if(datum["competition_stage"] === Object.keys(matchList)[i]){
+                let tmp = {};
+                tmp.match_id = datum["match_id"];
+                tmp.match_name = datum["home_team"] + " vs " + datum["away_team"];
+                matchList[Object.keys(matchList)[i]].push(tmp);
+            }
+        }
+    })
+    console.log(matchList);
+    return matchList; 
+})
 
+
+// 
+
+
+let filtered_data;
 
 function dataFilter(){
     fetch(dataURL).then(
@@ -100,7 +113,8 @@ function dataFilter(){
                         })
 
                         console.log(filteredData);
-                        
+                        filtered_data = filteredData;
+                        return filtered_data;
 
                         // let tablePos = document.getElementById("data");
                         // tablePos.insertAdjacentHTML('afterend',temp);                    
