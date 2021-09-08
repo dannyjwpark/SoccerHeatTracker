@@ -55,7 +55,6 @@ let match_1 = document.getElementById("match_1");
 
 
 // ensure wait loading (w/ asyncfunction)
-
 const loopData = async function (){
     for(let i = 0; i < stages.length; i++) {
         let obj = matchList[stages[i]];
@@ -64,37 +63,42 @@ const loopData = async function (){
             const innerValFunc = function () {
                 el.innerHTML = `<a href="#" class="chooseMatch" value=${obj[j]["match_id"]}>${obj[j]["match_name"]}</a>`;
             }
-            loadData(csvURL).then(
-                innerValFunc
+            loadData(csvURL)
+            .then(innerValFunc)
+            .then(() => {
+                if (stages[i] === "Group Stage") {
+                    match_32.appendChild(el);
+                } else if (stages[i] === "Round of 16") {
+                    match_16.appendChild(el);
+                } else if (stages[i] === "Quarter-finals") {
+                    match_8.appendChild(el);
+                } else if (stages[i] === "Semi-finals") {
+                    match_4.appendChild(el);
+                } else if (stages[i] === "3rd Place Final") {
+                    match_3.appendChild(el);
+                } else if (stages[i] === "Final") {
+                    match_1.appendChild(el);
+                }
+            }
             );
             console.log(el.innerHTML);
-            if (stages[i] === "Group Stage") {
-                match_32.appendChild(el);
-            } else if (stages[i] === "Round of 16") {
-                match_16.appendChild(el);
-            } else if (stages[i] === "Quarter-finals") {
-                match_8.appendChild(el);
-            } else if (stages[i] === "Semi-finals") {
-                match_4.appendChild(el);
-            } else if (stages[i] === "3rd Place Final") {
-                match_3.appendChild(el);
-            } else if (stages[i] === "Final") {
-                match_1.appendChild(el);
-            }
         }
     }
+    // matchSelect()
 }
-loadData(csvURL).then(loopData);
+let matchSelection;
+matchSelection = document.getElementsByClassName("chooseMatch");
+loadData(csvURL).then(loopData).then(matchSelect);
 
 
 // get match name and map mode from user's clicks
-let metchSelection;
-const choosingMatch = function(){ 
-    return matchSelection=document.getElementsByClassName("chooseMatch");
-}
-loopData().then(choosingMatch());
+// const choosingMatch = function(){ 
+    // return matchSelection=document.getElementsByClassName("chooseMatch");
+// }
+// loopData().then(choosingMatch());
 
-async function matchSelect(){
+function matchSelect(){
+    console.log(matchSelection.length);
     for (let i = 0; i < matchSelection.length; i++) {
         matchSelection[i].addEventListener("click", function () {
             matchName = matchSelection[i].innerHTML;
@@ -106,7 +110,6 @@ async function matchSelect(){
         });
     }
 }
-
 
 window.addEventListener('load', matchSelect());
 
@@ -147,7 +150,7 @@ function dataFilter() {
                         })
 
                         console.log(filteredData);
-                        filtered_data = filteredData;
+                        filtered_data = filteredData.filter((x) => x.id !== undefined);
                         return filtered_data;
                     }
                 }
