@@ -1,6 +1,7 @@
 let mapMode = "Pass";   // preset to pass
 let matchid = 8658; //preset to final
 let matchName;
+dataURL = `https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/${matchid}.json`;
 const csvURL = "dist/assets/data/worldcup_match_id.csv";
 
 // Loading csv and retrieving match data
@@ -82,7 +83,7 @@ const loopData = async function () {
                         match_1.appendChild(el);
                     }
                 }
-                ).then(dataFilter());
+                )
         }
     }
 };
@@ -107,20 +108,20 @@ function matchSelect(){
                 matchid = matchSelection[i].getAttribute("value");
                 console.log("matchName: " + matchName);
                 console.log("matchid: " + matchid);
+                dataURL = `https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/${matchid}.json`;
                 dataFilter();
             });
         }
     }, 500);
 }
 
-// window.addEventListener('load', matchSelect());
-
 
 // filtering data
 let filtered_data;
-const dataURL = `https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/${matchid}.json`;
+let pass_arr = [];
 
-function dataFilter() {
+
+async function dataFilter() {
     setTimeout(() => {
         fetch(dataURL).then(
             res => {
@@ -133,8 +134,8 @@ function dataFilter() {
                             }
                         })
 
+                        let filteredData = [];
                         if (data.length > 0) {
-                            let filteredData = [];
                             data.forEach((datum) => {
                                 let temp = {};
                                 if (datum.type["name"] === mapMode) {
@@ -154,11 +155,21 @@ function dataFilter() {
 
                             console.log(filteredData);
                             filtered_data = filteredData.filter((x) => x.id !== undefined);
-                            return filtered_data;
+
+                            filtered_data.forEach((data) => {
+                                pass_arr.push({x: `${data["pass_start_loc"][0]*5.8}`, y: `${data["pass_start_loc"][1]*5.8}`, group: data.teamname});
+                            })
+                            // filtered_data.forEach((data) => {
+                            //     passy_arr.push(data["pass_start_loc"][1]);
+                            // })
+
+
                         }
+                        return filtered_data;
                     }
-                ).catch(error => {
-                    throw Error("ERROR: no data found");
+                ).then(drawPlot)
+                .catch(error => {
+                    throw Error(`${error}`);
                 })
             }
         )
@@ -170,17 +181,18 @@ function dataFilter() {
 let req = new XMLHttpRequest();
 // field
 // ball coordinates
-let pass_x;
-let pass_y;
-let receive_x;
-let receive_y;
-let time_min;
-let time_sec;
-let teamname;
+let pass_x = [];
+let pass_y = [];
+let receive_x = [];
+let receive_y = [];
+let time_min = [];
+let time_sec = [];
+let teamname = [];
 
 // plots x,y scales, axes, and dimensions
 let xScale;
 let yScale;
+let colorScale;
 
 let xAxis;
 let yAxis;
@@ -203,6 +215,9 @@ let generateScales = () => {
     yScale = d3.scaleLinear()
         .domain([80,00])
         .range([padding, height - padding])
+    colorScale = d3.scaleLinear()
+        .domain([0,1])
+        .range(["white", "#69b3a2"])
 }
 
 let drawCanvas = () => {
@@ -210,43 +225,43 @@ let drawCanvas = () => {
     svg.attr('height', height);
 }
 
-let drawCells = () => {
-    // select all rectangles in canvas
-    canvas.selectAll('rect')
-        .data(pass_x)
-        .enter()
-        .append('rect')
-        .attr('class', 'cell')
-        .attr('fill', (item) => {
-            if (item.teamname === item[0].teamname) {
-                return 'SteelBlue'
-            } else {
-                return 'Orange'
-            }
+// let drawCells = () => {
+//     // select all rectangles in canvas
+//     canvas.selectAll('rect')
+//         .data(pass_x)
+//         .enter()
+//         .append('rect')
+//         .attr('class', 'cell')
+//         .attr('fill', (item) => {
+//             if (item.teamname === item[0].teamname) {
+//                 return 'SteelBlue'
+//             } else {
+//                 return 'Orange'
+//             }
 
-        })
-        .attr('pass_x', (item) => {
-            return item['pass_start_loc'][0];
-        })
-        .attr('pass_y', (item) => {
-            return item['pass_start_loc'][1];
-        })
-        .attr('receive_x', (item) => {
-            return item['pass_end_loc'][0];
-        })
-        .attr('receive_y', (item) => {
-            return item['pass_end_loc'][1];
-        })
-        .attr('time_min', (item) => {
-            return parseInt(item['timestamp'].slice(0,2));
-        })
-        .attr('time_y', (item) => {
-            return parseInt(item['timestamp'].slice(3));
-        })
-        .attr('height', 2)
-        .attr('width', 2)
+//         })
+//         .attr('pass_x', (item) => {
+//             return item['pass_start_loc'][0];
+//         })
+//         .attr('pass_y', (item) => {
+//             return item['pass_start_loc'][1];
+//         })
+//         .attr('receive_x', (item) => {
+//             return item['pass_end_loc'][0];
+//         })
+//         .attr('receive_y', (item) => {
+//             return item['pass_end_loc'][1];
+//         })
+//         .attr('time_min', (item) => {
+//             return parseInt(item['timestamp'].slice(0,2));
+//         })
+//         .attr('time_y', (item) => {
+//             return parseInt(item['timestamp'].slice(3));
+//         })
+//         .attr('height', 2)
+//         .attr('width', 2)
         
-}
+// }
 
 let drawAxes = () => {
     let xAxis = d3.axisBottom(xScale);
@@ -271,13 +286,36 @@ let appendImage = () => {
         .attr('width', width - padding)
         .attr('height', height - padding-100)
         .attr("xlink:href", "dist/assets/Images/soccerfield.svg")
-        // .attr('x', (item) => {
-        //     return xScale(item['pass_x']);
-        // })
-        // .attr('y', (item) => {
-        //     return yScale(item['pass_y']);
-        // })
+}
 
+let drawPlot = () => {
+    // passx_arr;
+    // passy_arr;
+    let data = pass_arr;
+
+    let densityData = d3.contourDensity()
+        .x(function (d) { return d.x })
+        .y(function (d) { return d.y })
+        // .x(function (d) { return passx_arr.forEach((el) => d.el)})
+        // .y(function (d) { return passy_arr.forEach((el) => d.el) })
+        .size([width+500, height+500])
+        .bandwidth(5) // for resolution
+        (data);
+        console.log(data);
+    console.log("densityData: ");
+    console.log(densityData);
+
+    canvas 
+        .selectAll("path")
+        .data(densityData)
+        .enter()
+        // .size([width. height])
+        .append("path")
+            .attr("d", d3.geoPath())
+            .attr("fill", "none")
+            .attr("stroke", "red")
+            .attr("stroke-linejoin", "round")
+            .attr('transform', 'translate(255, 18)');
 }
 
 
@@ -291,8 +329,15 @@ req.onload = () => {
     // drawCells();
     drawAxes();
     appendImage();
+    drawPlot();
 }
 req.send();
+
+
+
+
+
+
 
 
 
