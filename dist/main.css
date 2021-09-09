@@ -10,6 +10,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+
 .navbar, .container, .dropdown {
   overflow: visible;
   background-color: #333;
@@ -60,11 +61,13 @@ body {
 
 /* match, mode viewer */
 #matchList{
-  font-size: 20px
+  font-size: 20px;
+  display: flex;
+  justify-content: flex-end;
 }
 
-
-/* field */
+/* ---------------------------------------------------------------- */
+/* title */
 .title-container {
   display: flex;
   justify-content: center;
@@ -77,25 +80,22 @@ body {
   color: rgba(255, 255, 255, 0.838);
   font-family: 'Raleway', sans-serif;
 }
-
-
-.field-container {
-  display: flex;
-  justify-content: center;
-  background-color: transparent;
-  padding: 100px;
-  margin: 0 auto;
-  max-width: 1200px;
-}
+/* ---------------------------------------------------------------- */
+/* field */
 
 
 
 
 
+
+/* ---------------------------------------------------------------- */
 
 /* footer */
 .footer-container {
   background-color: #f1f2f6;
+  position: relative;
+  /* top: px; */
+  margin-top: -160px;
 }
 
 a:link    {color:orangered;  text-decoration:none}

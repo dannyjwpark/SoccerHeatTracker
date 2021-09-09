@@ -1,4 +1,3 @@
-let req = new XMLHttpRequest();
 let mapMode = "Pass";   // preset to pass
 let matchid = 8658; //preset to final
 let matchName;
@@ -45,28 +44,29 @@ for (let i = 0; i < modeSelection.length; i++) {
 }
 
 
-// Populate matches dropdown
-let match_32 = document.getElementById("match_32");
-let match_16 = document.getElementById("match_16");
-let match_8 = document.getElementById("match_8");
-let match_4 = document.getElementById("match_4");
-let match_3 = document.getElementById("match_3");
-let match_1 = document.getElementById("match_1");
-
-
 // ensure wait loading (w/ asyncfunction)
-const loopData = async function (){
-    for(let i = 0; i < stages.length; i++) {
+const loopData = async function () {
+    for (let i = 0; i < stages.length; i++) {
         let obj = matchList[stages[i]];
-        for(let j=0; j < obj.length; j++){
+        for (let j = 0; j < obj.length; j++) {
 
             let el = document.createElement("li");
-            
+
             const innerValFunc = function () {
-                el.innerHTML = `<a href="#" class="chooseMatch" value=${obj[j]["match_id"]}>${obj[j]["match_name"]}</a>`;
-            }
+                el.innerHTML = `<a href="#" class="chooseMatch" value=${obj[j].match_id}>${obj[j].match_name}</a>`;
+            };
+
             loadData(csvURL)
                 .then(innerValFunc)
+                .then(() => {
+                    let match_32 = document.getElementById("match_32");
+                    let match_16 = document.getElementById("match_16");
+                    let match_8 = document.getElementById("match_8");
+                    let match_4 = document.getElementById("match_4");
+                    let match_3 = document.getElementById("match_3");
+                    let match_1 = document.getElementById("match_1");
+                }
+                )
                 .then(() => {
                     if (stages[i] === "Group Stage") {
                         match_32.appendChild(el);
@@ -82,12 +82,10 @@ const loopData = async function (){
                         match_1.appendChild(el);
                     }
                 }
-                );
-            console.log(el.innerHTML);
+                ).then(dataFilter());
         }
     }
-    // matchSelect()
-}
+};
 let matchSelection;
 matchSelection = document.getElementsByClassName("chooseMatch");
 loadData(csvURL).then(loopData).then(matchSelect);
@@ -168,10 +166,134 @@ function dataFilter() {
 }
 
 
-
-
-
+//////////////////////////////////////////////////////////
+let req = new XMLHttpRequest();
 // field
+// ball coordinates
+let pass_x;
+let pass_y;
+let receive_x;
+let receive_y;
+let time_min;
+let time_sec;
+let teamname;
+
+// plots x,y scales, axes, and dimensions
+let xScale;
+let yScale;
+
+let xAxis;
+let yAxis;
+
+let width = 1000;
+let height = 680;
+let padding = 100;
+
+// selecting canvas attr
+let canvas = d3.select('#canvas');
+canvas.attr('width', width);
+canvas.attr('height', height);
+
+
+// functions
+let generateScales = () => {
+    xScale = d3.scaleLinear()
+        .domain([0,120])
+        .range([padding, width - padding-60])
+    yScale = d3.scaleLinear()
+        .domain([80,00])
+        .range([padding, height - padding])
+}
+
+let drawCanvas = () => {
+    svg.attr('width', width);
+    svg.attr('height', height);
+}
+
+let drawCells = () => {
+    // select all rectangles in canvas
+    canvas.selectAll('rect')
+        .data(pass_x)
+        .enter()
+        .append('rect')
+        .attr('class', 'cell')
+        .attr('fill', (item) => {
+            if (item.teamname === item[0].teamname) {
+                return 'SteelBlue'
+            } else {
+                return 'Orange'
+            }
+
+        })
+        .attr('pass_x', (item) => {
+            return item['pass_start_loc'][0];
+        })
+        .attr('pass_y', (item) => {
+            return item['pass_start_loc'][1];
+        })
+        .attr('receive_x', (item) => {
+            return item['pass_end_loc'][0];
+        })
+        .attr('receive_y', (item) => {
+            return item['pass_end_loc'][1];
+        })
+        .attr('time_min', (item) => {
+            return parseInt(item['timestamp'].slice(0,2));
+        })
+        .attr('time_y', (item) => {
+            return parseInt(item['timestamp'].slice(3));
+        })
+        .attr('height', 2)
+        .attr('width', 2)
+        
+}
+
+let drawAxes = () => {
+    let xAxis = d3.axisBottom(xScale);
+    let yAxis = d3.axisLeft(yScale);
+
+    // create SVG group element
+    canvas.append('g')
+        .call(xAxis)
+        .attr('id', 'x-axis')
+        .attr('transform', 'translate(150, 490)');
+
+    canvas.append('g')
+        .call(yAxis)
+        .attr('id', 'y-axis')
+        .attr('transform', 'translate(250, -90)')
+}
+
+let appendImage = () => {
+    canvas.append("svg:image")
+        .attr('x', 170)
+        .attr('y', 10)
+        .attr('width', width - padding)
+        .attr('height', height - padding-100)
+        .attr("xlink:href", "dist/assets/Images/soccerfield.svg")
+        // .attr('x', (item) => {
+        //     return xScale(item['pass_x']);
+        // })
+        // .attr('y', (item) => {
+        //     return yScale(item['pass_y']);
+        // })
+
+}
+
+
+// fetch JSON data
+req.open('GET', dataURL, true);
+req.onload = () => {
+    // let object = filtered_data;
+    // console.log("req.responseText: ");
+    // console.log(req.responseText);
+    generateScales();
+    // drawCells();
+    drawAxes();
+    appendImage();
+}
+req.send();
+
 
 
 

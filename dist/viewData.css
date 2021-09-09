@@ -1,19 +1,40 @@
 html{
     min-height: 100%;
 }
-body{
+.field-container{
+    position:relative;
+    width: 80%;
+    margin: auto;
+}
+
+/* body{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100%;
-}
+} */
 
-svg{
+#field{
+    display: flex;
+    justify-content: center;
     background-color: whitesmoke;
+    position: relative;
+    z-index: -1;
+    padding: 100px;
+    max-width: 83%
+    /* width: 90%;
+    height: 90%; */
+    /* top: 0;
+    left: 99px;  */
 }
 
 #canvas{
+    display: flex;
+    justify-content: center;
+    position: relative;
     min-height: 622px;
     min-width: 944px;
+    z-index: 0;
+
 }
