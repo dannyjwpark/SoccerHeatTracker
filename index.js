@@ -300,6 +300,7 @@ let drawPlot = () => {
         // .y(function (d) { return passy_arr.forEach((el) => d.el) })
         .size([width+500, height+500])
         .bandwidth(5) // for resolution
+        // .thresholds(2)
         (data);
         console.log(data);
     console.log("densityData: ");
