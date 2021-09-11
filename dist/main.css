@@ -66,6 +66,7 @@ body {
   justify-content: flex-end;
 }
 
+
 /* ---------------------------------------------------------------- */
 /* title */
 .title-container {
@@ -73,6 +74,8 @@ body {
   justify-content: center;
   width: 100%;
   background-color: black;
+  background-image: linear-gradient(rgb(4, 30, 60), rgb(52, 25, 5));
+
 }
 
 .title{
@@ -80,6 +83,17 @@ body {
   color: rgba(255, 255, 255, 0.838);
   font-family: 'Raleway', sans-serif;
 }
+/* ---------------------------------------------------------------- */
+/* Map Mode & Match Selected */
+.matchList{
+  font-size: 12px;
+  background-image: linear-gradient(white, #ffffffcd);
+}
+
+/* #demo1:hover, #demo2:hover{
+  ;
+} */
+
 /* ---------------------------------------------------------------- */
 /* field */
 
@@ -89,6 +103,28 @@ body {
 
 
 /* ---------------------------------------------------------------- */
+/* ball */
+.soccerball{
+  /* margin-top: -340px; */
+  position: relative;
+  animation: mymove 10s infinite;
+  width: 50%
+}
+
+@keyframes mymove {
+  0%   {top: 0; left: 0px; }
+  /* 10%  {top: 0; left: 50px; }
+  20%  {top: 0px; left: 100px; }
+  30%  {top: 0; left: 150px; }
+  40% {top: 0; left: 200px; }
+  50%   {top: 0px; left: 250px; }
+  60%  {top: 0; left: 300px; }
+  70%  {top: 0; left: 350px; }
+  80%  {top: 0px; left: 400px; }
+  90% {top: 0; left: 450px; } */
+  50% {top: 0; left: 1320px; }
+  100% {top: 0; left: 0}
+}
 
 /* footer */
 .footer-container {
@@ -97,6 +133,7 @@ body {
   /* top: px; */
   margin-top: -160px;
 }
+
 
 a:link    {color:orangered;  text-decoration:none}
 a:visited {color:orangered; text-decoration:none}
