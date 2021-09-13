@@ -118,7 +118,8 @@ function matchSelect(){
 
 // filtering data
 let filtered_data;
-let pass_arr = [];
+let pass_arr1 = [];
+let pass_arr2 = [];
 
 
 async function dataFilter() {
@@ -157,17 +158,19 @@ async function dataFilter() {
                             filtered_data = filteredData.filter((x) => x.id !== undefined);
 
                             filtered_data.forEach((data) => {
-                                pass_arr.push({x: `${data["pass_start_loc"][0]*5.8}`, y: `${data["pass_start_loc"][1]*5.8}`, group: data.teamname});
-                            })
-                            // filtered_data.forEach((data) => {
-                            //     passy_arr.push(data["pass_start_loc"][1]);
-                            // })
+                                if (data.teamname === filtered_data[0].teamname){
+                                    pass_arr1.push({x: `${data["pass_start_loc"][0]*5.8}`, y: `${data["pass_start_loc"][1]*5.8}`, group: data.teamname, timestamp: data.timestamp});
+                                } else {
+                                    pass_arr2.push({ x: `${data["pass_start_loc"][0] * 5.8}`, y: `${data["pass_start_loc"][1] * 5.8}`, group: data.teamname, timestamp: data.timestamp });
+                                }
 
+                            })
 
                         }
                         return filtered_data;
                     }
-                ).then(drawPlot)
+                ).then(drawPlot1)
+                .then(drawPlot2)
                 .catch(error => {
                     throw Error(`${error}`);
                 })
@@ -225,43 +228,6 @@ let drawCanvas = () => {
     svg.attr('height', height);
 }
 
-// let drawCells = () => {
-//     // select all rectangles in canvas
-//     canvas.selectAll('rect')
-//         .data(pass_x)
-//         .enter()
-//         .append('rect')
-//         .attr('class', 'cell')
-//         .attr('fill', (item) => {
-//             if (item.teamname === item[0].teamname) {
-//                 return 'SteelBlue'
-//             } else {
-//                 return 'Orange'
-//             }
-
-//         })
-//         .attr('pass_x', (item) => {
-//             return item['pass_start_loc'][0];
-//         })
-//         .attr('pass_y', (item) => {
-//             return item['pass_start_loc'][1];
-//         })
-//         .attr('receive_x', (item) => {
-//             return item['pass_end_loc'][0];
-//         })
-//         .attr('receive_y', (item) => {
-//             return item['pass_end_loc'][1];
-//         })
-//         .attr('time_min', (item) => {
-//             return parseInt(item['timestamp'].slice(0,2));
-//         })
-//         .attr('time_y', (item) => {
-//             return parseInt(item['timestamp'].slice(3));
-//         })
-//         .attr('height', 2)
-//         .attr('width', 2)
-        
-// }
 
 let drawAxes = () => {
     let xAxis = d3.axisBottom(xScale);
@@ -288,19 +254,16 @@ let appendImage = () => {
         .attr("xlink:href", "dist/assets/Images/soccerfield.svg")
 }
 
-let drawPlot = () => {
-    // passx_arr;
-    // passy_arr;
-    let data = pass_arr;
+let drawPlot1 = async () => {
+    let data = pass_arr1;
 
     let densityData = d3.contourDensity()
         .x(function (d) { return d.x })
         .y(function (d) { return d.y })
-        // .x(function (d) { return passx_arr.forEach((el) => d.el)})
-        // .y(function (d) { return passy_arr.forEach((el) => d.el) })
+        // .group(function (d) { return d.group})
         .size([width+500, height+500])
         .bandwidth(5) // for resolution
-        // .thresholds(2)
+        .thresholds(35)
         (data);
         console.log(data);
     console.log("densityData: ");
@@ -313,10 +276,39 @@ let drawPlot = () => {
         // .size([width. height])
         .append("path")
             .attr("d", d3.geoPath())
-            .attr("fill", "none")
+            .attr("fill", "pink")
             .attr("stroke", "red")
             .attr("stroke-linejoin", "round")
             .attr('transform', 'translate(255, 18)');
+    
+}
+
+let drawPlot2 = () => {
+    let data = pass_arr2;
+
+    let densityData = d3.contourDensity()
+        .x(function (d) { return d.x })
+        .y(function (d) { return d.y })
+        // .group(function (d) { return d.group})
+        .size([width + 500, height + 500])
+        .bandwidth(5) // for resolution
+        .thresholds(35)
+        (data);
+    console.log(data);
+    console.log("densityData: ");
+    console.log(densityData);
+
+    canvas
+        .selectAll("path")
+        .data(densityData)
+        .enter()
+        // .size([width. height])
+        .append("path")
+        .attr("d", d3.geoPath())
+        .attr("fill", "none")
+        .attr("stroke", "blue")
+        .attr("stroke-linejoin", "round")
+        .attr('transform', 'translate(255, 18)');
 }
 
 
@@ -330,7 +322,8 @@ req.onload = () => {
     // drawCells();
     drawAxes();
     appendImage();
-    drawPlot();
+    drawPlot1();
+    drawPlot2();
 }
 req.send();
 

@@ -111,18 +111,20 @@ body {
   width: 50%
 }
 
+#soccerball{
+  position: relative;
+  animation: myspin 10s infinite;
+
+}
+
+@keyframes myspin {
+  50% {transform: rotate(720deg);}
+}
+
+
 @keyframes mymove {
   0%   {top: 0; left: 0px; }
-  /* 10%  {top: 0; left: 50px; }
-  20%  {top: 0px; left: 100px; }
-  30%  {top: 0; left: 150px; }
-  40% {top: 0; left: 200px; }
-  50%   {top: 0px; left: 250px; }
-  60%  {top: 0; left: 300px; }
-  70%  {top: 0; left: 350px; }
-  80%  {top: 0px; left: 400px; }
-  90% {top: 0; left: 450px; } */
-  50% {top: 0; left: 1320px; }
+  50% {top: 0; left: 1320px;}
   100% {top: 0; left: 0}
 }
 
