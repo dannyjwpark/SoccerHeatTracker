@@ -1,7 +1,6 @@
 # SoccerHeatTracker
 
-[![Build Status](https://app.travis-ci.com/dannyjwpark/SoccerHeatTracker.svg?branch=main)](https://app.travis-ci.com/github/dannyjwpark/SoccerHeatTracker
-<!-- [![Build Status](https://travis-ci.org/dannyjwpark/FARS.svg?branch=master)](https://travis-ci.org/dannyjwpark/FARS) -->
+[![Build Status](https://app.travis-ci.com/dannyjwpark/SoccerHeatTracker.svg?branch=main)](https://app.travis-ci.com/github/dannyjwpark/SoccerHeatTracker)
 
 [Live Demo](https://dannyjwpark.github.io/SoccerHeatTracker/#)
 
