@@ -1,4 +1,3 @@
-
 let mapMode = "Pass";   // preset to pass
 let matchid = 8658; //preset to final
 let matchName;
