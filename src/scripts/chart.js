@@ -3,7 +3,7 @@ let mapMode = "Pass";   // preset to pass
 let matchid = 8658; //preset to final
 let matchName;
 dataURL = `https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/${matchid}.json`;
-const csvURL = "../../dist/assets/data/worldcup_match_id.csv";
+const csvURL = "./assets/data/worldcup_match_id.csv";
 
 
 // Loading csv and retrieving match data
@@ -256,7 +256,7 @@ let appendImage = () => {
         .attr('y', 10)
         .attr('width', width - padding)
         .attr('height', height - padding - 100)
-        .attr("xlink:href", "../../dist/assets/Images/soccerfield.svg")
+        .attr("xlink:href", "./assets/Images/soccerfield.svg")
 }
 
 let drawPlot1 = async () => {
