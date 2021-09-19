@@ -7,7 +7,7 @@ function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
 
-
+// declaring variables for match & mode selections
 let mapMode = "Pass";   // preset to pass
 let matchid = 8658; //preset to final
 let matchName;
@@ -20,7 +20,6 @@ let matchList = { "Group Stage": [], "Round of 16": [], "Quarter-finals": [], "S
 let stages = Object.keys(matchList);
 
 async function loadData(csvURL) {
-    // console.log("csv: " + csvURL);
     await d3.csv(csvURL).then(function (data) {
         data.forEach(function (datum) {
             // console.log(datum.home_team + " vs " + datum.away_team);
@@ -33,10 +32,8 @@ async function loadData(csvURL) {
                 }
             }
         })
-        // return matchList;
     })
 };
-// loadData(csvURL);
 
 
 // get and set map mode
@@ -191,7 +188,7 @@ async function dataFilter() {
 }
 
 
-//////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let req = new XMLHttpRequest();
 // field
 // ball coordinates
