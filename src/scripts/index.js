@@ -229,7 +229,7 @@ let generateScales = () => {
         .domain([0, 120])
         .range([padding, width - padding - 60])
     yScale = d3.scaleLinear()
-        .domain([80, 00])
+        .domain([80, 100])
         .range([padding, height - padding])
     colorScale = d3.scaleLinear()
         .domain([0, 1])
