@@ -51,7 +51,7 @@ for (let i = 0; i < modeSelection.length; i++) {
             mapMode = "Pass"
         }
         document.getElementById("demo2").innerHTML = modeName.innerHTML;
-        console.log("mode: " + modeName.innerHTML);
+        // console.log("mode: " + modeName.innerHTML);
     });
 }
 
@@ -111,14 +111,14 @@ loadData(csvURL).then(loopData).then(matchSelect);
 
 function matchSelect() {
     setTimeout(() => {
-        console.log(matchSelection.length);
+        // console.log(matchSelection.length);
         for (let i = 0; i < matchSelection.length; i++) {
             matchSelection[i].addEventListener("click", function () {
                 matchName = matchSelection[i].innerHTML;
                 document.getElementById("demo1").innerHTML = matchName;
                 matchid = matchSelection[i].getAttribute("value");
-                console.log("matchName: " + matchName);
-                console.log("matchid: " + matchid);
+                // console.log("matchName: " + matchName);
+                // console.log("matchid: " + matchid);
                 dataURL = `https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/${matchid}.json`;
                 dataFilter();
             });
@@ -165,7 +165,7 @@ async function dataFilter() {
                                 filteredData.push(temp);
                             })
 
-                            console.log(filteredData);
+                            // console.log(filteredData);
                             filtered_data = filteredData.filter((x) => x.id !== undefined);
 
                             filtered_data.forEach((data) => {
@@ -279,9 +279,9 @@ let drawPlot1 = async () => {
         .bandwidth(5) // for resolution
         .thresholds(35)
         (data);
-    console.log(data);
-    console.log("densityData: ");
-    console.log(densityData);
+    // console.log(data);
+    // console.log("densityData: ");
+    // console.log(densityData);
 
     canvas
         .selectAll("path")
@@ -308,9 +308,9 @@ let drawPlot2 = () => {
         .bandwidth(5) // for resolution
         .thresholds(35)
         (data);
-    console.log(data);
-    console.log("densityData: ");
-    console.log(densityData);
+    // console.log(data);
+    // console.log("densityData: ");
+    // console.log(densityData);
 
     canvas
         .selectAll("path")
