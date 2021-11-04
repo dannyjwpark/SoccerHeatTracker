@@ -152,7 +152,14 @@ a:visited {color:orangered; text-decoration:none}
 	transform: scale(1.2);
 	-webkit-transition: .1s ease-in-out;
 	transition: .1s ease-in-out;}
+
 .footer_Linkedin:hover   {margin-left: 5px;
+	-webkit-transform: scale(1.2);
+	transform: scale(1.2);
+	-webkit-transition: .1s ease-in-out;
+	transition: .1s ease-in-out;}
+
+.footer_Portfolio:hover   {margin-left: 5px;
 	-webkit-transform: scale(1.2);
 	transform: scale(1.2);
 	-webkit-transition: .1s ease-in-out;
@@ -174,7 +181,14 @@ a:visited {color:orangered; text-decoration:none}
   padding-right: 5px;
   width: 32px;
 }
+
 .footer_Linkedin{
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 35px;
+}
+
+.footer_Portfolio{
   padding-left: 5px;
   width: 32px;
 }
