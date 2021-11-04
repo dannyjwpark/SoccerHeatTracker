@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "## Background Welcome to SoccerHeatTracker, an interactive heatmap generator of various data retrieved from professional soccer matches.",
   "main": "webpack.config.js",
-  "browserslist": [
-    "defaults"
-  ],
   "engines": {
     "node": "14.x"
   },
