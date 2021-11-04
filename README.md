@@ -7,8 +7,6 @@ Welcome to SoccerHeatTracker, an interactive heatmap generator of various data r
 
 Heatmap is a great visualization technique to show the magnitude of aggregations of  data with color intensities. Using sets of tabular data retrieved from a single match, SoccerHeatTracker will visualize different types of players' data such as passes frequencies, shots, or pass/shot accuracies.  
 
-![](https://github.com/dannyjwpark/SoccerHeatTracker/blob/main/dist/assets/image/screenshot.png)
-
 
 
 ## Functionality
@@ -18,7 +16,7 @@ Heatmap is a great visualization technique to show the magnitude of aggregations
 
 ## Wireframes
 ### Sample heatmap of passes
-![](https://github.com/dannyjwpark/SoccerHeatTracker/blob/main/dist/assets/image/Wireframe_home.jpg)
+![](https://github.com/dannyjwpark/SoccerHeatTracker/blob/main/dist/assets/image/screenshot.png)
 
 ### Sample tabular data of a single player
 ![](https://github.com/dannyjwpark/SoccerHeatTracker/blob/main/dist/assets/image/Wireframe_data.jpg)
