@@ -12,7 +12,7 @@ let mapMode = "Pass";   // preset to pass
 let matchid = 8658; //preset to final
 let matchName;
 dataURL = `https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/${matchid}.json`;
-const csvURL = "../../dist/assets/data/worldcup_match_id.csv";
+const csvURL = "dist/assets/data/worldcup_match_id.csv";
 
 // Loading csv and retrieving match data
 let matchList = { "Group Stage": [], "Round of 16": [], "Quarter-finals": [], "Semi-finals": [], "3rd Place Final": [], "Final": [] };
