@@ -55,7 +55,6 @@ for (let i = 0; i < modeSelection.length; i++) {
       mapMode = "Pass"
     }
     document.getElementById("demo1").innerHTML = modeName.innerHTML;
-    // console.log("mode: " + modeName.innerHTML);
   });
 }
 
@@ -121,7 +120,6 @@ loadData(csvURL).then(loopData).then(matchSelect);
 
 function matchSelect() {
   setTimeout(() => {
-    // console.log(matchSelection.length);
     for (let i = 0; i < matchSelection.length; i++) {
       matchSelection[i].addEventListener("click", function () {
         matchName = matchSelection[i].innerHTML;
@@ -130,8 +128,6 @@ function matchSelect() {
         document.getElementById("demo2b").innerHTML = " vs " + '&nbsp;';
         document.getElementById("demo2c").innerHTML = matchName.slice(idx+3, matchName.length);
         matchid = matchSelection[i].getAttribute("value");
-        // console.log("matchName: " + matchName);
-        // console.log("matchid: " + matchid);
         dataURL = `https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/${matchid}.json`;
         dataFilter1()
       });
@@ -379,14 +375,13 @@ let drawPlot1 = async () => {
     .thresholds(35)
     (data_all);
 
-  let datasets = [densityData1, densityData2];
   
-  console.log('densityData1');
-  console.log(densityData1);
-  console.log('densityData2');
-  console.log(densityData2);
-  console.log('densityDataAll');
-  console.log(densityDataAll);
+  // console.log('densityData1');
+  // console.log(densityData1);
+  // console.log('densityData2');
+  // console.log(densityData2);
+  // console.log('densityDataAll');
+  // console.log(densityDataAll);
   
   canvas1.append('g')
     .selectAll("path")
@@ -448,15 +443,13 @@ let drawPlot2 = async () => {
     .bandwidth(5) // for resolution
     .thresholds(35)
     (data_all);
-
-  let datasets = [densityData1, densityData2];
   
-  console.log('densityData1');
-  console.log(densityData1);
-  console.log('densityData2');
-  console.log(densityData2);
-  console.log('densityDataAll');
-  console.log(densityDataAll);
+  // console.log('densityData1');
+  // console.log(densityData1);
+  // console.log('densityData2');
+  // console.log(densityData2);
+  // console.log('densityDataAll');
+  // console.log(densityDataAll);
   
   canvas1.append('g')
     .selectAll("path")
