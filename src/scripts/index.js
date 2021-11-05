@@ -264,7 +264,7 @@ let appendImage = () => {
     .attr('y', 10)
     .attr('width', width - padding)
     .attr('height', height - padding - 100)
-    .attr("href", "/dist/assets/image/soccerfield.jpeg")
+    .attr("href", "dist/assets/image/soccerfield.jpeg")
 }
 
 let drawPlot1 = async () => {
