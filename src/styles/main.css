@@ -10,6 +10,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 
 .navbar, .container, .dropdown {
   overflow: visible;
@@ -41,6 +46,10 @@ body {
   background-color: transparent;
 }
 
+.container::after {
+  width: 0;
+}
+
 .About-Instruction {
   /* display: none; */
 }
@@ -67,13 +76,30 @@ body {
   margin-top: -1px;
 }
 
-/* match, mode viewer */
+/* ---------------------------------------------------------------- */
+/* map mpde, match selected */
+.settings-selection{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
 #matchList{
   font-size: 20px;
   display: flex;
   justify-content: flex-end;
 }
+.map-mode, .match-selected {
+  font-size: 15px;
+}
 
+#demo1, #demo2 {
+  font-size: 13px;
+}
+
+.reset-button {
+  margin-left: auto;
+}
 
 /* ---------------------------------------------------------------- */
 /* title */
@@ -122,7 +148,7 @@ body {
 #soccerball{
   position: relative;
   animation: myspin 10s infinite;
-
+  margin-bottom: 20px;
 }
 
 @keyframes myspin {

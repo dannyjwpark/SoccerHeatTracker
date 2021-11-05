@@ -15,9 +15,10 @@ html{
     min-height: 100%;
 } */
 
-#field{
-    display: flex;
+#field_box{
+    /* display: flex; */
     justify-content: center;
+    align-items: center;
     background-color: whitesmoke;
     position: relative;
     z-index: -1;
@@ -32,6 +33,7 @@ html{
 #canvas{
     display: flex;
     justify-content: center;
+    align-content: center;
     position: relative;
     min-height: 622px;
     min-width: 944px;

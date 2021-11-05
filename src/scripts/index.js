@@ -23,13 +23,13 @@ let matchList = {
   "3rd Place Final": [], 
   "Final": [] 
 };
+
 let stages = Object.keys(matchList);
 
 async function loadData(csvURL) {
   // console.log("csv: " + csvURL);
   await d3.csv(csvURL).then(function (data) {
     data.forEach(function (datum) {
-      // console.log(datum.home_team + " vs " + datum.away_team);
       for (let i = 0; i < stages.length; i++) {
         if (datum["competition_stage"] === stages[i]) {
           let tmp = {};
@@ -39,10 +39,8 @@ async function loadData(csvURL) {
         }
       }
     })
-    // return matchList;
   })
 };
-// loadData(csvURL);
 
 
 // get and set map mode
@@ -56,10 +54,16 @@ for (let i = 0; i < modeSelection.length; i++) {
     } else {
       mapMode = "Pass"
     }
-    document.getElementById("demo2").innerHTML = modeName.innerHTML;
+    document.getElementById("demo1").innerHTML = modeName.innerHTML;
     // console.log("mode: " + modeName.innerHTML);
   });
 }
+
+// reset button
+function refreshPage(){
+  window.location.reload();
+}
+
 
 
 // ensure wait loading (w/ asyncfunction)
@@ -121,7 +125,7 @@ function matchSelect() {
     for (let i = 0; i < matchSelection.length; i++) {
       matchSelection[i].addEventListener("click", function () {
         matchName = matchSelection[i].innerHTML;
-        document.getElementById("demo1").innerHTML = matchName;
+        document.getElementById("demo2").innerHTML = matchName;
         matchid = matchSelection[i].getAttribute("value");
         // console.log("matchName: " + matchName);
         // console.log("matchid: " + matchid);
@@ -171,7 +175,6 @@ async function dataFilter() {
                     filteredData.push(temp);
                   })
 
-                  // console.log(filteredData);
                   filtered_data = filteredData.filter((x) => x.id !== undefined);
 
                   filtered_data.forEach((data) => {
@@ -224,7 +227,7 @@ let padding = 100;
 
 // selecting canvas attr
 let canvas = d3.select('#canvas');
-canvas.attr('width', width);
+canvas.attr('width', width+100);
 canvas.attr('height', height);
 
 const timeConv = d3.timeParse("%I:%M-%S");
@@ -248,7 +251,6 @@ let drawCanvas = () => {
   svg.attr('height', height);
 }
 
-
 let drawAxes = () => {
   let xAxis = d3.axisBottom(xScale).tickSize(0).tickValues([]);
   let yAxis = d3.axisLeft(yScale).tickSize(0).tickValues([]);
@@ -257,17 +259,17 @@ let drawAxes = () => {
   canvas.append('g')
     .call(xAxis)
     .attr('id', 'x-axis')
-    .attr('transform', 'translate(150, 490)');
+    .attr('transform', 'translate(230, 470)');
 
   canvas.append('g')
     .call(yAxis)
     .attr('id', 'y-axis')
-    .attr('transform', 'translate(250, -90)')
+    .attr('transform', 'translate(330, -90)')
 }
 
 let appendImage = () => {
   canvas.append("svg:image")
-    .attr('x', 170)
+    .attr('x', 250)
     .attr('y', 10)
     .attr('width', width - padding)
     .attr('height', height - padding - 100)
@@ -280,26 +282,21 @@ let drawPlot1 = async () => {
   let densityData = d3.contourDensity()
     .x(function (d) { return d.x })
     .y(function (d) { return d.y })
-    // .group(function (d) { return d.group})
     .size([width + 500, height + 500])
     .bandwidth(5) // for resolution
     .thresholds(35)
     (data);
-  // console.log(data);
-  // console.log("densityData: ");
-  // console.log(densityData);
 
   canvas
     .selectAll("path")
     .data(densityData)
     .enter()
-    // .size([width. height])
     .append("path")
     .attr("d", d3.geoPath())
     .attr("fill", "pink")
     .attr("stroke", "red")
     .attr("stroke-linejoin", "round")
-    .attr('transform', 'translate(255, 18)');
+    .attr('transform', 'translate(335, 14)');
 
 }
 
@@ -309,20 +306,15 @@ let drawPlot2 = () => {
   let densityData = d3.contourDensity()
     .x(function (d) { return d.x })
     .y(function (d) { return d.y })
-    // .group(function (d) { return d.group})
     .size([width + 500, height + 500])
     .bandwidth(5) // for resolution
     .thresholds(35)
     (data);
-  // console.log(data);
-  // console.log("densityData: ");
-  // console.log(densityData);
 
   canvas
     .selectAll("path")
     .data(densityData)
     .enter()
-    // .size([width. height])
     .append("path")
     .attr("d", d3.geoPath())
     .attr("fill", "none")
@@ -335,11 +327,7 @@ let drawPlot2 = () => {
 // fetch JSON data
 req.open('GET', dataURL, true);
 req.onload = () => {
-  // let object = filtered_data;
-  // console.log("req.responseText: ");
-  // console.log(req.responseText);
   generateScales();
-  // drawCells();
   drawAxes();
   appendImage();
   drawPlot1();

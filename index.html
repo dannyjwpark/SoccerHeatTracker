@@ -61,79 +61,86 @@
   <a href="https://www.espn.com/soccer/" target="_blank">News</a>
 
 
-<div class="container">
+  <!-- <div class="container"> -->
     <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Match
-            <span class="caret"></span></button>
-        <ul class="dropdown-menu">
+      <button 
+        class="btn btn-default dropdown-toggle" 
+        type="button" 
+        data-toggle="dropdown"
+      > Select Match
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
 
-            <li class="dropdown-submenu">
-                <a class="test" href="#">Group Stage <span class="caret"></span></a>
-                <ul class="dropdown-menu" id="match_32">
-                    <li><a href="#" class="chooseMatch"></a></li>
-                </ul>
-            </li>
+          <li class="dropdown-submenu">
+              <a class="test" href="#">Group Stage <span class="caret"></span></a>
+              <ul class="dropdown-menu" id="match_32">
+                  <li><a href="#" class="chooseMatch"></a></li>
+              </ul>
+          </li>
 
-            <li class="dropdown-submenu">
-                <a class="test" href="#">Round of 16 <span class="caret"></span></a>
-                <ul class="dropdown-menu" id="match_16">
-                    <li><a href="#" class="chooseMatch"></a></li>
-                </ul>
-            </li>
+          <li class="dropdown-submenu">
+              <a class="test" href="#">Round of 16 <span class="caret"></span></a>
+              <ul class="dropdown-menu" id="match_16">
+                  <li><a href="#" class="chooseMatch"></a></li>
+              </ul>
+          </li>
 
-            <li class="dropdown-submenu">
-                <a class="test" href="#">Quarter-finals <span class="caret"></span></a>
-                <ul class="dropdown-menu" id="match_8">
-                    <li><a href="#" class="chooseMatch"></a></li>
-                </ul>
-            </li>
+          <li class="dropdown-submenu">
+              <a class="test" href="#">Quarter-finals <span class="caret"></span></a>
+              <ul class="dropdown-menu" id="match_8">
+                  <li><a href="#" class="chooseMatch"></a></li>
+              </ul>
+          </li>
 
-            <li class="dropdown-submenu">
-                <a class="test" href="#">Semi-finals <span class="caret"></span></a>
-                <ul class="dropdown-menu" id="match_4">
-                    <li><a href="#" class="chooseMatch"></a></li>
-                </ul>
-            </li>
+          <li class="dropdown-submenu">
+              <a class="test" href="#">Semi-finals <span class="caret"></span></a>
+              <ul class="dropdown-menu" id="match_4">
+                  <li><a href="#" class="chooseMatch"></a></li>
+              </ul>
+          </li>
 
-            <li class="dropdown-submenu">
-                <a class="test" href="#">3rd Place Final <span class="caret"></span></a>
-                <ul class="dropdown-menu" id="match_3">
-                    <li><a href="#" class="chooseMatch"></a></li>
-                </ul>
-            </li>
+          <li class="dropdown-submenu">
+              <a class="test" href="#">3rd Place Final <span class="caret"></span></a>
+              <ul class="dropdown-menu" id="match_3">
+                  <li><a href="#" class="chooseMatch"></a></li>
+              </ul>
+          </li>
 
-            <li class="dropdown-submenu">
-                <a class="test" href="#">Final <span class="caret"></span></a>
-                <ul class="dropdown-menu" id="match_1">
-                    <li><a href="#" class="chooseMatch"></a></li>
-                </ul>
-            </li>
+          <li class="dropdown-submenu">
+              <a class="test" href="#">Final <span class="caret"></span></a>
+              <ul class="dropdown-menu" id="match_1">
+                  <li><a href="#" class="chooseMatch"></a></li>
+              </ul>
+          </li>
         </ul>
-    </div>
-</div>
+      </div>
+  <!-- </div> -->
 
-
-
-
-<div class="container">
+  <!-- <div class="container"> -->
     <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Mode
-            <span class="caret"></span></button>
-        <ul class="dropdown-menu">
+      <button 
+        class="btn btn-default dropdown-toggle" 
+        type="button" 
+        data-toggle="dropdown">
+        Select Mode
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
 
-            <li class="dropdown-submenu">
-                <a href="#" class="chooseMode">Passing </a>
-            </li>
-            
-            <li class="dropdown-submenu">
-                <a href="#" class="chooseMode">Shooting </a>
-        </ul>
-        </li>
+          <li class="dropdown-submenu">
+              <a href="#" class="chooseMode">Passing </a>
+          </li>
+          
+          <li class="dropdown-submenu">
+              <a href="#" class="chooseMode">Shooting </a>
+      </ul>
+      </li>
 
-        </ul>
+      </ul>
     </div>
+  <!-- </div> -->
 </div>
-    </div>
 
 
 
@@ -149,16 +156,21 @@
     });
 </script>
 
-<table class="matchList">
-    <tr>
-        <th>Map Mode: </th>
-        <td id="demo1"></td>
-    </tr>
-    <tr>
-        <th>Match Selected: </th>
-        <td id="demo2"></td>
-    </tr>
-</table>
+<div class="settings-selection">
+  <table class="matchList">
+      <tr>
+          <th class="map-mode">Map Mode: &nbsp; </th>
+          <td id="demo1"></td>
+      </tr>
+      <tr>
+          <th class="match-selected">Match Selected: &nbsp; </th>
+          <td id="demo2"></td>
+      </tr>
+  </table>
+  <button class="reset-button" onClick="refreshPage()">
+    Reset Chart
+  </button>
+</div>
 
 
 
@@ -192,7 +204,12 @@
                     style="text-align:center" alt="Linkedin">
                 </a>
                 <a href="https://dannyjwpark.github.io/dannyjwp/" target="_blank">
-                  <img class="footer_Portfolio" src="dist/assets/image/portfolio.ico" style="text-align:center" alt="Portfolio">
+                  <img 
+                  class="footer_Portfolio" 
+                  src="dist/assets/image/portfolio.ico" 
+                  style="text-align:center" 
+                  alt="Portfolio"
+                  >
                 </a>               
                 
             </div>
