@@ -93,8 +93,16 @@ body {
   font-size: 15px;
 }
 
-#demo1, #demo2 {
+#demo1, #demo2a, #demo2b, #demo2c {
   font-size: 13px;
+}
+
+#demo2a{
+  color: red;
+}
+
+#demo2c{
+  color: blue;
 }
 
 .reset-button {

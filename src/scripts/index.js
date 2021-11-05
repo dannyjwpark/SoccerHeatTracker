@@ -125,12 +125,15 @@ function matchSelect() {
     for (let i = 0; i < matchSelection.length; i++) {
       matchSelection[i].addEventListener("click", function () {
         matchName = matchSelection[i].innerHTML;
-        document.getElementById("demo2").innerHTML = matchName;
+        let idx = matchName.indexOf('vs');
+        document.getElementById("demo2a").innerHTML = matchName.slice(0,idx-1) +' &nbsp;';
+        document.getElementById("demo2b").innerHTML = " vs " + '&nbsp;';
+        document.getElementById("demo2c").innerHTML = matchName.slice(idx+3, matchName.length);
         matchid = matchSelection[i].getAttribute("value");
         // console.log("matchName: " + matchName);
         // console.log("matchid: " + matchid);
         dataURL = `https://raw.githubusercontent.com/statsbomb/open-data/master/data/events/${matchid}.json`;
-        dataFilter();
+        dataFilter1()
       });
     }
   }, 500);
@@ -141,56 +144,69 @@ function matchSelect() {
 let filtered_data;
 let pass_arr1 = [];
 let pass_arr2 = [];
+let pass_arr_all = [];
 
 
-async function dataFilter() {
+async function dataFilter1() {
   setTimeout(() => {
     fetch(dataURL).then(
       res => {
-          res.json().then(
-            data => {
-              // adjusting 2nd half minutes
-              data.forEach((el) => {
-                if (el.period === 2) {
-                  el.minute += 45;
+        res.json().then(
+          data => {
+            // adjusting 2nd half minutes
+            data.forEach((el) => {
+              if (el.period === 2) {
+                el.minute += 45;
+              }
+            })
+
+            let filteredData = [];
+            if (data.length > 0) {
+              data.forEach((datum) => {
+                let temp = {};
+                if (datum.type["name"] === mapMode) {
+                  temp.id = datum.id;
+                  temp.period = datum.period;
+                  temp.timestamp = datum.timestamp.slice(0, 5);
+                  temp.teamname = datum.team.name;
+                  temp.playername = datum.player.name;
+                  temp.event = datum.type.name;
+                  temp.pass_start_loc = datum.location;
+                  temp.pass_end_loc = datum.pass.end_location;
+                  temp.pass_length = datum.pass.length;
+                  temp.pass_angle = datum.pass.angle;
                 }
+                filteredData.push(temp);
               })
 
-              let filteredData = [];
-              if (data.length > 0) {
-                data.forEach((datum) => {
-                    let temp = {};
-                    if (datum.type["name"] === mapMode) {
-                      temp.id = datum.id;
-                      temp.period = datum.period;
-                      temp.timestamp = datum.timestamp.slice(0, 5);
-                      temp.teamname = datum.team.name;
-                      temp.playername = datum.player.name;
-                      temp.event = datum.type.name;
-                      temp.pass_start_loc = datum.location;
-                      temp.pass_end_loc = datum.pass.end_location;
-                      temp.pass_length = datum.pass.length;
-                      temp.pass_angle = datum.pass.angle;
-                    }
-                    filteredData.push(temp);
-                  })
+              filtered_data = filteredData.filter((x) => x.id !== undefined);
 
-                  filtered_data = filteredData.filter((x) => x.id !== undefined);
-
-                  filtered_data.forEach((data) => {
-                    if (data.teamname === filtered_data[0].teamname) {
-                      pass_arr1.push({ x: `${data["pass_start_loc"][0] * 5.8}`, y: `${data["pass_start_loc"][1] * 5.8}`, group: data.teamname, timestamp: data.timestamp });
-                    } else {
-                      pass_arr2.push({ x: `${data["pass_start_loc"][0] * 5.8}`, y: `${data["pass_start_loc"][1] * 5.8}`, group: data.teamname, timestamp: data.timestamp });
-                    }
-
-                  })
-
+              filtered_data.forEach((data) => {
+                if (data.teamname === filtered_data[0].teamname) {
+                  pass_arr1.push({ x: `${data["pass_start_loc"][0] * 5.8}`, y: `${data["pass_start_loc"][1] * 5.8}`, group: data.teamname, timestamp: data.timestamp });
+                } else {
+                  pass_arr2.push({ x: `${data["pass_start_loc"][0] * 5.8}`, y: `${data["pass_start_loc"][1] * 5.8}`, group: data.teamname, timestamp: data.timestamp });
                 }
-                return filtered_data;
+
+              })
+
+              filtered_data.forEach((data) => {
+                  pass_arr_all.push({ x: `${data["pass_start_loc"][0] * 5.8}`, y: `${data["pass_start_loc"][1] * 5.8}`, group: data.teamname, timestamp: data.timestamp });
+
+              })
+
+              console.log('pass_arr1');
+              console.log(pass_arr1);
+              console.log('pass_arr2');
+              console.log(pass_arr2);
+              console.log('pass_arr_all');
+              console.log(pass_arr_all);
+
             }
-        ).then(drawPlot1)
-          .then(drawPlot2)
+            return filtered_data;
+          }
+        )
+        .then(drawPlot1)
           .catch(error => {
             throw Error(`${error}`);
           })
@@ -198,6 +214,8 @@ async function dataFilter() {
     )
   }, 600)
 }
+
+
 
 
 //////////////////////////////////////////////////////////
@@ -226,9 +244,9 @@ let height = 680;
 let padding = 100;
 
 // selecting canvas attr
-let canvas = d3.select('#canvas');
-canvas.attr('width', width+100);
-canvas.attr('height', height);
+let canvas1 = d3.select('#canvas1');
+canvas1.attr('width', width+100);
+canvas1.attr('height', height);
 
 const timeConv = d3.timeParse("%I:%M-%S");
 
@@ -256,19 +274,20 @@ let drawAxes = () => {
   let yAxis = d3.axisLeft(yScale).tickSize(0).tickValues([]);
 
   // create SVG group element
-  canvas.append('g')
+  canvas1.append('g')
     .call(xAxis)
     .attr('id', 'x-axis')
     .attr('transform', 'translate(230, 470)');
 
-  canvas.append('g')
+  canvas1.append('g')
     .call(yAxis)
     .attr('id', 'y-axis')
     .attr('transform', 'translate(330, -90)')
 }
 
+
 let appendImage = () => {
-  canvas.append("svg:image")
+  canvas1.append("svg:image")
     .attr('x', 250)
     .attr('y', 10)
     .attr('width', width - padding)
@@ -276,62 +295,112 @@ let appendImage = () => {
     .attr("href", "dist/assets/image/soccerfield.jpeg")
 }
 
+
 let drawPlot1 = async () => {
-  let data = pass_arr1;
+  let data1 = pass_arr1;
+  let data2 = pass_arr2;
+  let data_all = pass_arr_all;
 
-  let densityData = d3.contourDensity()
+
+  let densityData1 = d3.contourDensity()
     .x(function (d) { return d.x })
     .y(function (d) { return d.y })
+    // .group(function (d) { return d.group })
     .size([width + 500, height + 500])
     .bandwidth(5) // for resolution
     .thresholds(35)
-    (data);
+    (data1);
 
-  canvas
-    .selectAll("path")
-    .data(densityData)
-    .enter()
-    .append("path")
-    .attr("d", d3.geoPath())
-    .attr("fill", "pink")
-    .attr("stroke", "red")
-    .attr("stroke-linejoin", "round")
-    .attr('transform', 'translate(335, 14)');
-
-}
-
-let drawPlot2 = () => {
-  let data = pass_arr2;
-
-  let densityData = d3.contourDensity()
+  let densityData2 = d3.contourDensity()
     .x(function (d) { return d.x })
     .y(function (d) { return d.y })
+    // .group(function (d) { return d.group })
     .size([width + 500, height + 500])
     .bandwidth(5) // for resolution
     .thresholds(35)
-    (data);
+    (data2);
 
-  canvas
-    .selectAll("path")
-    .data(densityData)
-    .enter()
-    .append("path")
-    .attr("d", d3.geoPath())
-    .attr("fill", "none")
-    .attr("stroke", "blue")
-    .attr("stroke-linejoin", "round")
-    .attr('transform', 'translate(255, 18)');
+  let densityDataAll = d3.contourDensity()
+    .x(function (d) { return d.x })
+    .y(function (d) { return d.y })
+    // .group(function (d) { return d.group })
+    .size([width + 500, height + 500])
+    .bandwidth(5) // for resolution
+    .thresholds(35)
+    (data_all);
+
+  let datasets = [densityData1, densityData2];
+  
+  console.log('densityData1');
+  console.log(densityData1);
+  console.log('densityData2');
+  console.log(densityData2);
+  console.log('densityDataAll');
+  console.log(densityDataAll);
+  
+  // canvas1.append('g')
+  //   .call(xAxis)
+  //   .attr('id', 'x-axis')
+  //   .attr('transform', 'translate(230, 470)');
+
+  // canvas1.append('g')
+  //   .call(yAxis)
+  //   .attr('id', 'y-axis')
+  //   .attr('transform', 'translate(330, -90)')
+  
+  // datasets.forEach((dataset) => {
+    // if(dataset = densityData1){
+      canvas1.append('g')
+        .selectAll("path")
+        .data(densityData1)
+        .enter()
+        .append("path")
+        .attr('id', 'teamA')
+        .attr("d", d3.geoPath())
+        .attr("fill", "pink")
+        .attr("stroke", "red")
+        .attr("stroke-linejoin", "round")
+        .attr('transform', 'translate(335, 14)')
+        // .style("z-index", 10)
+        // .style("opacity",0.6);
+    // } else 
+      canvas1.append('g')
+        .selectAll("path")
+        .data(densityData2)
+        .enter()
+        .append("path")
+        .attr('id', 'teamb')
+        .attr("d", d3.geoPath())
+        .attr("fill", "lightblue")
+        .attr("stroke", "blue")
+        .attr("stroke-linejoin", "round")
+        .attr('transform', 'translate(335, 14)')
+        // .style("z-index", -10)
+        // .style("opacity",0.6);
+    // }
+
+  // })
+
+  // canvas1
+  //   .selectAll("path")
+  //   .data(densityData1)
+  //   .enter()
+  //   .append("path")
+  //   .attr("d", d3.geoPath())
+  //   .attr("fill", "pink")
+  //   .attr("stroke", "red")
+  //   .attr("stroke-linejoin", "round")
+  //   .attr('transform', 'translate(335, 14)')
 }
 
 
-// fetch JSON data
+
+// fetch JSON data, then draw axes & field
 req.open('GET', dataURL, true);
 req.onload = () => {
   generateScales();
   drawAxes();
   appendImage();
-  drawPlot1();
-  drawPlot2();
 }
 req.send();
 

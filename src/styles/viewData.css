@@ -30,7 +30,17 @@ html{
     left: 99px;  */
 }
 
-#canvas{
+#canvas1{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    position: relative;
+    min-height: 622px;
+    min-width: 944px;
+    z-index: 0;
+
+}
+#canvas2{
     display: flex;
     justify-content: center;
     align-content: center;
