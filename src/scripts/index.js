@@ -15,7 +15,14 @@ dataURL = `https://raw.githubusercontent.com/statsbomb/open-data/master/data/eve
 const csvURL = "dist/assets/data/worldcup_match_id.csv";
 
 // Loading csv and retrieving match data
-let matchList = { "Group Stage": [], "Round of 16": [], "Quarter-finals": [], "Semi-finals": [], "3rd Place Final": [], "Final": [] };
+let matchList = { 
+  "Group Stage": [], 
+  "Round of 16": [], 
+  "Quarter-finals": [], 
+  "Semi-finals": [], 
+  "3rd Place Final": [], 
+  "Final": [] 
+};
 let stages = Object.keys(matchList);
 
 async function loadData(csvURL) {
