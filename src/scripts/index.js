@@ -27,7 +27,6 @@ let matchList = {
 let stages = Object.keys(matchList);
 
 async function loadData(csvURL) {
-  // console.log("csv: " + csvURL);
   await d3.csv(csvURL).then(function (data) {
     data.forEach(function (datum) {
       for (let i = 0; i < stages.length; i++) {
@@ -71,39 +70,37 @@ const loopData = async function () {
     let obj = matchList[stages[i]];
     for (let j = 0; j < obj.length; j++) {
 
-      let el = document.createElement("li");
+    let el = document.createElement("li");
 
-      const innerValFunc = function () {
-        el.innerHTML = `<a href="#" class="chooseMatch" value=${obj[j].match_id}>${obj[j].match_name}</a>`;
-      };
+    const innerValFunc = function () {
+      el.innerHTML = `<a href="#" class="chooseMatch" value=${obj[j].match_id}>${obj[j].match_name}</a>`;
+    };
 
-      loadData(csvURL)
-          .then(innerValFunc)
-          .then(() => {
-            let match_32 = document.getElementById("match_32");
-            let match_16 = document.getElementById("match_16");
-            let match_8 = document.getElementById("match_8");
-            let match_4 = document.getElementById("match_4");
-            let match_3 = document.getElementById("match_3");
-            let match_1 = document.getElementById("match_1");
-          }
-          )
-          .then(() => {
-            if (stages[i] === "Group Stage") {
-              match_32.appendChild(el);
-            } else if (stages[i] === "Round of 16") {
-              match_16.appendChild(el);
-            } else if (stages[i] === "Quarter-finals") {
-              match_8.appendChild(el);
-            } else if (stages[i] === "Semi-finals") {
-              match_4.appendChild(el);
-            } else if (stages[i] === "3rd Place Final") {
-              match_3.appendChild(el);
-            } else if (stages[i] === "Final") {
-              match_1.appendChild(el);
-            }
-          }
-          )
+    loadData(csvURL)
+      .then(innerValFunc)
+      .then(() => {
+        let match_32 = document.getElementById("match_32");
+        let match_16 = document.getElementById("match_16");
+        let match_8 = document.getElementById("match_8");
+        let match_4 = document.getElementById("match_4");
+        let match_3 = document.getElementById("match_3");
+        let match_1 = document.getElementById("match_1");
+      })
+      .then(() => {
+        if (stages[i] === "Group Stage") {
+          match_32.appendChild(el);
+        } else if (stages[i] === "Round of 16") {
+          match_16.appendChild(el);
+        } else if (stages[i] === "Quarter-finals") {
+          match_8.appendChild(el);
+        } else if (stages[i] === "Semi-finals") {
+          match_4.appendChild(el);
+        } else if (stages[i] === "3rd Place Final") {
+          match_3.appendChild(el);
+        } else if (stages[i] === "Final") {
+          match_1.appendChild(el);
+        }
+      })
     }
   }
 };
@@ -113,11 +110,6 @@ loadData(csvURL).then(loopData).then(matchSelect);
 
 
 // get match name and map mode from user's clicks
-// const choosingMatch = function(){ 
-// return matchSelection=document.getElementsByClassName("chooseMatch");
-// }
-// loopData().then(choosingMatch());
-
 function matchSelect() {
   setTimeout(() => {
     for (let i = 0; i < matchSelection.length; i++) {
@@ -147,7 +139,7 @@ let shot_arr2 = [];
 let shot_arr_all = [];
 
 
-async function dataFilter1() {
+async function dataFilter1() {  
   setTimeout(() => {
     fetch(dataURL).then(
       res => {
@@ -206,7 +198,7 @@ async function dataFilter1() {
             if (data.length > 0) {
               data.forEach((datum) => {
                 let temp = {};
-                if (datum.type["name"] === 'Shot') {
+                if (datum.type["name"] === 'Shot'){
                   temp.id = datum.id;
                   temp.period = datum.period;
                   temp.timestamp = datum.timestamp.slice(0, 5);
@@ -218,9 +210,18 @@ async function dataFilter1() {
                 }
                 filteredDataShot.push(temp);
               })
-
+              
               filtered_data_shot = filteredDataShot.filter((x) => x.id !== undefined);
+              console.log(filtered_data_shot);
 
+              filtered_data_shot.forEach((datum, idx) => {
+                // if(idx % 2 === 0) {
+                if(datum.period === 2) {
+                  datum.shot_start_loc[0] = 0 + (125 - datum.shot_start_loc[0]);
+                  datum.shot_end_loc[0] = 0 + (125 - datum.shot_end_loc[0]);
+                }
+              })
+              
               filtered_data_shot.forEach((data) => {
                 if (data.teamname === filtered_data_shot[0].teamname) {
                   shot_arr1.push({ x: `${data["shot_start_loc"][0] * 5.8}`, y: `${data["shot_start_loc"][1] * 5.8}`, group: data.teamname, timestamp: data.timestamp });
@@ -240,27 +241,29 @@ async function dataFilter1() {
             }
             if(modeName.innerHTML === "Passing"){
               return filtered_data_pass;
-            } else {
+            } else if(modeName.innerHTML === "Shooting") {
               return filtered_data_shot;
-            }
+            } 
           }
         )
         .then(drawPlotFunction)
           .catch(error => {
-            throw Error(`${error}`);
+            // throw Error(`${error}`);
+            alert("Choose map mode on \"Select Mode\" dropdown before selecting a match.");
+            refreshPage();
           })
       }
     )
   }, 600)
 }
 
-
 function drawPlotFunction (){
-  console.log(modeName.innerHTML);
   if(modeName.innerHTML === "Passing"){
     drawPlot1()
-  } else {
+  } else if (modeName.innerHTML === "Shooting") {
     drawPlot2()
+  } else if((modeName.innerHTML !== "Passing") || (modeName.innerHTML !== "Shooting")) {
+    alert("Choose map mode on \"Select Mode\" dropdown before selecting a match.")
   }
 }
 
@@ -345,7 +348,6 @@ let appendImage = () => {
 let drawPlot1 = async () => {
   let data1 = pass_arr1;
   let data2 = pass_arr2;
-  let data_all = pass_arr_all;
 
 
   let densityData1 = d3.contourDensity()
@@ -366,23 +368,7 @@ let drawPlot1 = async () => {
     .thresholds(35)
     (data2);
 
-  let densityDataAll = d3.contourDensity()
-    .x(function (d) { return d.x })
-    .y(function (d) { return d.y })
-    // .group(function (d) { return d.group })
-    .size([width + 500, height + 500])
-    .bandwidth(5) // for resolution
-    .thresholds(35)
-    (data_all);
-
-  
-  // console.log('densityData1');
-  // console.log(densityData1);
-  // console.log('densityData2');
-  // console.log(densityData2);
-  // console.log('densityDataAll');
-  // console.log(densityDataAll);
-  
+    
   canvas1.append('g')
     .selectAll("path")
     .data(densityData1)
@@ -410,47 +396,26 @@ let drawPlot1 = async () => {
 
 // plotting shots
 let drawPlot2 = async () => {
-
   let data1 = shot_arr1;
   let data2 = shot_arr2;
-  let data_all = shot_arr_all;
-
 
 
   let densityData1 = d3.contourDensity()
     .x(function (d) { return d.x })
     .y(function (d) { return d.y })
-    // .group(function (d) { return d.group })
     .size([width + 500, height + 500])
-    .bandwidth(5) // for resolution
-    .thresholds(35)
+    .bandwidth(4) // for resolution
+    .thresholds(3)
     (data1);
 
   let densityData2 = d3.contourDensity()
     .x(function (d) { return d.x })
     .y(function (d) { return d.y })
-    // .group(function (d) { return d.group })
     .size([width + 500, height + 500])
-    .bandwidth(5) // for resolution
-    .thresholds(35)
+    .bandwidth(4) // for resolution
+    .thresholds(3)
     (data2);
-
-  let densityDataAll = d3.contourDensity()
-    .x(function (d) { return d.x })
-    .y(function (d) { return d.y })
-    // .group(function (d) { return d.group })
-    .size([width + 500, height + 500])
-    .bandwidth(5) // for resolution
-    .thresholds(35)
-    (data_all);
-  
-  // console.log('densityData1');
-  // console.log(densityData1);
-  // console.log('densityData2');
-  // console.log(densityData2);
-  // console.log('densityDataAll');
-  // console.log(densityDataAll);
-  
+    
   canvas1.append('g')
     .selectAll("path")
     .data(densityData1)
@@ -458,8 +423,8 @@ let drawPlot2 = async () => {
     .append("path")
     .attr('id', 'teamA')
     .attr("d", d3.geoPath())
-    .attr("fill", "pink")
-    .attr("stroke", "red")
+    .attr("fill", "red")
+    // .attr("stroke", "red")
     .attr("stroke-linejoin", "round")
     .attr('transform', 'translate(335, 14)')
 
@@ -468,10 +433,10 @@ let drawPlot2 = async () => {
     .data(densityData2)
     .enter()
     .append("path")
-    .attr('id', 'teamb')
+    .attr('id', 'teamB')
     .attr("d", d3.geoPath())
-    .attr("fill", "lightblue")
-    .attr("stroke", "blue")
+    .attr("fill", "blue")
+    // .attr("stroke", "blue")
     .attr("stroke-linejoin", "round")
     .attr('transform', 'translate(335, 14)')
 }
