@@ -21,8 +21,6 @@ body {
   background-color: #333;
   display: flex;
   flex-wrap: nowrap;
-
-  
 }
 
 .navbar a {
@@ -50,9 +48,6 @@ body {
   width: 0;
 }
 
-.About-Instruction {
-  /* display: none; */
-}
 
 .About-Instruction:hover {
   display: block;
@@ -60,7 +55,7 @@ body {
 
 
 /* dropdown button & submenus hovering color*/
-.navbar a:hover, .dropdown:hover .dropbtn {
+.navbar a:hover, .dropdown:hover {
   background-color: rgba(211,211,211,0.386);
 }
 
@@ -68,6 +63,7 @@ body {
 .dropdown-submenu {
   position: relative;
 }
+
 
 /* append submenu to right side*/
 .dropdown-submenu .dropdown-menu {
@@ -166,7 +162,7 @@ body {
 
 @keyframes mymove {
   0%   {top: 0; left: 0px; }
-  50% {top: 0; left: 1320px;}
+  50% {top: 0; left: 96vw}
   100% {top: 0; left: 0}
 }
 
@@ -174,7 +170,6 @@ body {
 .footer-container {
   background-color: #f1f2f6;
   position: relative;
-  /* top: px; */
   margin-top: -160px;
 }
 

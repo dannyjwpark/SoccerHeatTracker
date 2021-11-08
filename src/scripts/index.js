@@ -7,6 +7,19 @@ function closeForm() {
   document.getElementById("myForm").style.display = "none";
 }
 
+$(function () {
+  $('.dropdown-list > ul').toggleClass('no-js js');
+  $('.dropdown-list .js ul').hide();
+
+  $('.dropdown-list .js').click(function(e) 
+    {
+      $(this).find('ul').slideToggle(400); 
+      $('.dropdown-list .js ul').not($(this).find('ul')).hide();
+      e.preventDefault();
+      e.stopPropagation();
+  });      
+});
+
 
 let mapMode = "Pass";   // preset to pass
 let matchid = 8658; //preset to final
